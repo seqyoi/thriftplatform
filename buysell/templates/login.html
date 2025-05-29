@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+  <div class="login-box">
+    <form class="login-form" method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <div class="login-header">
+        <header>Login</header>
+      </div>
+
+      <div class="input-box">
+        <input
+          type="text"
+          class="input-field"
+          required
+          name="email"
+          placeholder="Email"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="input-box">
+        <input
+          type="password"
+          class="input-field"
+          required
+          name="password"
+          placeholder="Password"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="forgot">
+        <section>
+          <input type="checkbox" id="check" />
+          <label for="check"> Remember me</label>
+        </section>
+        <section>
+          <a href="#">Forgot Password?</a>
+        </section>
+      </div>
+
+      <div class="input-submit">
+        <button class="submit-btn" id="submit" type="submit">Sign In</button>
+      </div>
+
+      <div class="sign-up-link">
+        <p>
+          Don't have an account?
+          <a href="/register">Register</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
