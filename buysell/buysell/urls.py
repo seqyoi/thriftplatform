@@ -21,8 +21,6 @@ from thrifty import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('thrifty.urls')),
-    path('login/',views.login_view, name='login'),
-    path("register/",views.register, name= 'register'),
-     path('', views.home, name='home'),
+    #path('login/', include('thrifty.urls')),
 ]
  

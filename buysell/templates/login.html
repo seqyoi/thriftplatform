@@ -18,7 +18,7 @@
 
   <div class="login-box">
     <form class="login-form" method="post" action="{% url 'login' %}">
-      {% csrf_token %}
+      {% csrf_token %} 
       <div class="login-header">
         <header>Login</header>
       </div>
@@ -51,7 +51,7 @@
           <label for="check"> Remember me</label>
         </section>
         <section>
-          <a href="#">Forgot Password?</a>
+          <a href="{% url 'forgot-password' %}">Forgot Password?</a>
         </section>
       </div>
 
@@ -62,7 +62,7 @@
       <div class="sign-up-link">
         <p>
           Don't have an account?
-          <a href="/register">Register</a>
+          <a href="{% url 'register' %}">Register</a>
         </p>
       </div>
     </form>

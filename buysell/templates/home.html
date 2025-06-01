@@ -17,9 +17,9 @@
   <header class="navbar">
     <div class="logo">Thriftify</div>
     <nav class="nav-links">
-      <a href="#">Home</a>
-      <a href="product1/">Shop</a>
-      <a href="#">Categories</a>
+      <a href="{% url 'home' %}" >Home</a>
+      <a href="{% url 'shop' %}">Shop</a>
+      <a href="{% url 'category_list' %}">Categories</a>
       <a href="#">Contact</a>
     </nav>
     <div class="nav-buttons">
@@ -39,8 +39,8 @@
     <div class="hero-text">
       <h1>Discover Unique Vintage Finds</h1>
       <p>Curated fashion from the past, styled for today.</p>
-      <a href="#" class="btn">Shop Now</a>
-    </div>
+      <a href="{% url 'shop' %}" class="btn">Shop Now</a>
+    </div> 
 
     <div class="hero-slideshow-group">
       <div class="hero-slideshow">

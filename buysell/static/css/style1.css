@@ -41,12 +41,10 @@
   }/* Base Styles */
 /* Base Styles */
 body {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #fefefe;
-    color: #2d3436;
-    padding-bottom: 80px;
+  font-family: 'Poppins', sans-serif;
+      margin: 20px;
+      background-color: #fafafa;
+      color: #2d3436;
 }
 
 /* Header */
