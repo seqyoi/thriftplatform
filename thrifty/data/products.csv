@@ -1,0 +1,481 @@
+product_id,product_name,price,category,rating ,imagefilename,userId
+1,1 number,462.39,TShirt,3,1 number.jpg,AKM1MP6P0OYPR
+2,alpha wolf tee,432.15,TShirt,2,alpha wolf tee.jpg  ,A2CX7LUOHB2NDG
+3,alpha wolf tshirt,435.13,TShirt,3,alpha wolf tshirt.jpg  ,A2NWSAGRHCP8N5
+4,B&W stripped tee,391.72,TShirt,3,B&W stripped tee.jpg  ,A2WNBOD3WNDNKT
+5,B&W stripped top,399.45,TShirt,4,B&W stripped top.jpg  ,A1GI0U4ZRJA8WN
+6,baby pink cute top,417.97,TShirt,2,baby pink cute top.jpg  ,A1QGNMC6O1VW39
+7,big adidas printed tee,436.85,TShirt,5,big adidas printed tee.jpg  ,A3J3BRHTDRFJ2G
+8,big shirt,386.54,TShirt,2,big shirt.jpg  ,A2TY0BTJOTENPG
+9,big,302.62,TShirt,3,big.jpg  ,A34ATBPOK6HCHY
+10,black adidas track,335.99,TShirt,5,black adidas track.jpg  ,A89DO69P0XZ27
+11,black polo tshirt,307.07,TShirt,3,black polo tshirt.jpg  ,AZYNQZ94U6VDB
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,A1DA3W4GTFXP6O
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg  ,A29LPQQDG7LD5J
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,AO94DHGC771SJ
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,AMO214LNFCEI4
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,A28B1G1MSJ6OO1
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,A3N7T0DY83Y4IG
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,A1H8PY3QHMQQA0
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,A2CPBQ5W4OGBX
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,A265MKAR2WEH3Y
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,A37K02NKUIT68K
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,A2AW1SSVUIYV9Y
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,A2AEHUKOV014BP
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,AMLFNXUIEMN4T
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,A2O8FIJR9EBU56
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,A3IQGFB959IR4P
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,AYTBGUX49LF3W
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,A24QFSUU00IZ05
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,A1NG5X8VYZWX0Q
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,A1E4WG8HRWWK4R
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,A2AOEW5UGXFOOQ
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,A2XSWV6AQI90BR
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,AR84FMFYCQCWF
+12,black ruffle cardigan,436.93,TShirt,5,black ruffle cardigan.jpg ,A19TBA1WARJS55
+13,black top,347.46,TShirt,3,black top.jpg  ,A3C5SMBSKKWNPT
+14,black tshirt,399.3,TShirt,4,black tshirt.jpg  ,A24EV6RXELQZ63
+15,blackcardigan,376.46,TShirt,3,blackcardigan.jpg  ,A3T6ZQONABIJSG
+16,blue adidas tshirt,309.32,TShirt,5,blue adidas tshirt.jpg  ,A132P6YSJSI5G2
+17,blue mens tee,408.8,TShirt,3,blue mens tee.jpg  ,A1NQPG5IJ43HJI
+18,blue turtleneck halfsleeved,389.3,TShirt,4,blue turtleneck halfsleeved.jpg  ,A2WOJCFAWI8VS8
+19,blueshirt,356.12,TShirt,4,blueshirt.jpg  ,A22FB2WSZSXSHH
+20,brand union,413.77,TShirt,3,brand union.jpg  ,AZQZ3STMCBG5H
+21,brown fitted shirt,432.76,TShirt,2,brown fitted shirt.jpg  ,A2EGPA22UHMQXL
+22,brown net top,411.28,TShirt,5,brown net top.jpg22,AC57CU3TF6ZMJ
+22,brown net top,411.28,TShirt,5,brown net top.jpg,A2YX0Z6RHA8Y2H
+22,brown net top,411.28,TShirt,5,brown net top.jpg,A38T51B7J6QVD9
+22,brown net top,411.28,TShirt,5,brown net top.jpg,A1HOSS7PNC1LMU
+22,brown net top,411.28,TShirt,5,brown net top.jpg,A9HI77BE35VYE
+22,brown net top,411.28,TShirt,5,brown net top.jpg,A3HFUWKSPF5QEH
+22,brown net top,411.28,TShirt,5,brown net top.jpg,A38ETMHM9ATSF0
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,AHYURLVH267MA
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,A1FXYTO11KEJ2P
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg  ,A2TKKYL3GKFS2M
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,A3F069UFW04K1E
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,A3HQ8RXUMJ2Y58
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,A2MNKBHPMBB0EA
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,A3HGTTFIDLCWDJ
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,AYM7NJTTX3M0L
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,A2PL24SVISXZM9
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,A3I1C8WM8DLSMM
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,A29LNVZLBG0IYN
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,A2CP4GY6XAWIII
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,A1UMFN4RKU451R
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,A3T3XKC7H5ACI1
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,A1NQNJ3EAZ6CMZ
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,A34TPQUVSQXXPX
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,A2B4F6LP0ZLI8E
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,A1RKH6803HVOQL
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,A3ZNVCQCG57AY
+23,brown stripped sweater,418.64,TShirt,4,brown stripped sweater.jpg ,A1HM74IXWXQ5D8
+24,brown tee,307.22,TShirt,4,brown tee.jpg  ,A2DUI0YVE1DZ48
+25,bus,494.22,TShirt,5,bus.jpg  ,AH3LYMIBZ6DKF
+26,butterfly printe tee,372.94,TShirt,2,butterfly printe tee.jpg  ,AWA0CM7TY98QX
+27,cali tshirt,314.89,TShirt,2,cali tshirt.jpg  ,A244IAP7UBVHH6
+28,cool ran,336.19,TShirt,4,cool ran.jpg  ,A3E7PG9CHDBICA
+29,cottagetop,456.17,TShirt,3,cottagetop.jpg  ,A2JXAZZI9PHK9Z
+30,cropped tshirt,494.78,TShirt,5,cropped tshirt.jpg  ,A1RTWWRHVIVWQW
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,A2P5U7BDKKT7FW
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg,A262D8GC5XRU31
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,AAZ084UMH8VZ2
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg  ,A3M122DYN9L5N8
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,A3S0RV5ZQ37538
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg,A150Y5KRN7FWJJ
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,AEZ3CR6BKIROJ
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg,A3BY5KCNQZXV5U
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,A1JIOBEWHVV8MC
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg,A2OJRZGW5YVGNS
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,A14KUMEJ094IZ3
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg,A212UCG62RO8JF
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,A18U7ZDE2VHD01
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg,A39J1PTX1KAL66
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,A2IEJQ8754BMSI
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg,APGCN777AZIYR
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,A1UMV2TNJ96LMU
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg,A7S2B0I67WNWB
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,A3HICVLF4PFFMN
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg,A3HGP1YI7G80HA
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,A2SRW2W1GXYKQZ
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg,A3S51KDTK4P2JP
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,A2ATRYXF83T83K
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg,A5MJPMMDAA1RQ
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,A1RGYV1ASMTMSE
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg,ANSKSPEEAKY7S
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,A2QBZA4S1ROX9Q
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg,A2FT4NPBE189NB
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,AEFUHKIXACWJW
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg,ANY6JUFM0GH8U
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,A29AHNG4TUERKG
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg,AT09WGFUM934H
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,A1JB5VD57VRYAX
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg,A22055Y81HHDQ9
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,A2CVNEE0H2F1YE
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg,ASLRVLGGF5F2J
+31,denim fitted coat,450.6,TShirt,3,denim fitted coat.jpg  ,A2TSQNO5HXCYN2
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg ,A1G0KYO61NFVTF
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,A2OC1UK7VMBLOT
+32,denim flared coat,314.98,TShirt,3,denim flared coat.jpg,A260COKJRRVS3U
+31,denim fitted coat,450.6,TShirt,4,denim fitted coat.jpg  ,A1T8TP4OHT5T13
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg ,AGAKHE014LQFU
+31,denim fitted coat,450.6,TShirt,3,denim fitted coat.jpg  ,A3NU787GB0X67S
+32,denim flared coat,314.98,TShirt,3,denim flared coat.jpg ,AY0BL2JD0GAFT
+31,denim fitted coat,450.6,TShirt,5,denim fitted coat.jpg  ,A2UVFEZ7UDBRAA
+32,denim flared coat,314.98,TShirt,5,denim flared coat.jpg ,A2332ANCYJS96P
+33,dnm 1987,425.75,TShirt,4,dnm 1987.jpg  ,A1S6B5QFWGVL5U
+34,dont care,365.28,TShirt,3,dont care.jpg  ,A399VAWM09IRH9
+35,elephant printed tee,433.64,TShirt,2,elephant printed tee.jpg  ,AMP3SRCVG8VED
+36,eminem,446.72,TShirt,5,eminem.jpg  ,ANFUGJ8Z9EMQS
+37,enjoy every momen tshirt,393.44,TShirt,3,enjoy every momen tshirt.jpg  ,A2N3PEHL6QY8U8
+38,evolution,347.69,TShirt,5,evolution.jpg  ,A2KK9GUTOXMB43
+39,fairy top,424.43,TShirt,2,fairy top.jpg ,A1G5M9B068B6N4
+39,fairy top,424.43,TShirt,2,fairy top.jpg  ,A107S4MT25VXQ5
+39,fairy top,424.43,TShirt,2,fairy top.jpg ,A1IIGG5OMZKNYP
+39,fairy top,424.43,TShirt,2,fairy top.jpg ,A3RV0ZUIEOM0TX
+39,fairy top,424.43,TShirt,2,fairy top.jpg ,AAWFWZ2K9WTV1
+39,fairy top,424.43,TShirt,2,fairy top.jpg ,A2J3WVIQ5LO1O7
+39,fairy top,424.43,TShirt,2,fairy top.jpg ,A1GI134K2EVPEM
+39,fairy top,424.43,TShirt,2,fairy top.jpg ,A37ASPPZ778F9O
+39,fairy top,424.43,TShirt,2,fairy top.jpg ,AWL0JAXP3LQWJ
+39,fairy top,424.43,TShirt,2,fairy top.jpg ,A29FNXHYVA2W4G
+39,fairy top,424.43,TShirt,2,fairy top.jpg ,A32JHAQPVSGHUD
+39,fairy top,424.43,TShirt,2,fairy top.jpg ,A2C8SNQ59NMJ1
+39,fairy top,424.43,TShirt,2,fairy top.jpg ,AUMPN10O0S5WE
+39,fairy top,424.43,TShirt,2,fairy top.jpg ,A1APJUGO70YI8
+40,flower pattern top,302.81,TShirt,4,flower pattern top.jpg  ,A2WOSVWG4SX1J1
+41,flowery off-shoulder top,469.76,TShirt,3,flowery off-shoulder top.jpg  ,A17ZYVAZZZWXU5
+42,flowery tee,322.23,TShirt,2,flowery tee.jpg  ,A1PY7ODDSRIFGV
+43,fnaf tshirt,453.41,TShirt,5,fnaf tshirt.jpg  ,AJ4QIAKKHW21N
+44,full-sleeved gothic top,498.68,TShirt,3,full-sleeved gothic top.jpg,A2RMLNVKPFRK7X
+44,full-sleeved gothic top,498.68,TShirt,3,full-sleeved gothic top.jpg  ,A2R4GEWPLORVSO
+44,full-sleeved gothic top,498.68,TShirt,3,full-sleeved gothic top.jpg,A1KKUYTDUZDZSA
+44,full-sleeved gothic top,498.68,TShirt,3,full-sleeved gothic top.jpg,A34527S2PDKKGN
+44,full-sleeved gothic top,498.68,TShirt,3,full-sleeved gothic top.jpg,ACVACAN9F8XKR
+44,full-sleeved gothic top,498.68,TShirt,3,full-sleeved gothic top.jpg,A5OXSZ6JI3WW0
+44,full-sleeved gothic top,498.68,TShirt,3,full-sleeved gothic top.jpg,A28K8QC9C4WPGE
+44,full-sleeved gothic top,498.68,TShirt,3,full-sleeved gothic top.jpg,A266DODBJYK0X
+44,full-sleeved gothic top,498.68,TShirt,3,full-sleeved gothic top.jpg,A17RBVZX3VTNBW
+44,full-sleeved gothic top,498.68,TShirt,3,full-sleeved gothic top.jpg,AV4GK35MHBFMW
+44,full-sleeved gothic top,498.68,TShirt,3,full-sleeved gothic top.jpg,A3UKB1QYS8KBW0
+44,full-sleeved gothic top,498.68,TShirt,3,full-sleeved gothic top.jpg,A11E2USO989A37
+44,full-sleeved gothic top,498.68,TShirt,3,full-sleeved gothic top.jpg,A9CRICSLKO7DJ
+44,full-sleeved gothic top,498.68,TShirt,3,full-sleeved gothic top.jpg,A32HSNCNPRUMTR
+44,full-sleeved gothic top,498.68,TShirt,3,full-sleeved gothic top.jpg,A17HMM1M7T9PJ1
+44,full-sleeved gothic top,498.68,TShirt,3,full-sleeved gothic top.jpg,A1GWA4DX7T4RWE
+44,full-sleeved gothic top,498.68,TShirt,3,full-sleeved gothic top.jpg,A233AWZLS4LDYO
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg,A737SIAIN3WIY
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg   ,AVH06NSECM8EY
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A1BKC6B7YHYTVV
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,AWVFSIB42LHKJ
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A36MQBNADRH8YY
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A3SRXMPLAEZ6DP
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A20XXTXWF2TCPY
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,AOZZ0CTG5RMW1
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A2IDCSC6NVONIZ
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,AML8NIWFKHZJU
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A33HBPL7Q6SZMG
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A22JDDJB1ZLGGZ
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A39PZJCRS98E6P
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A17S5ODXALEGVP
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A2WAXINV2ODKUQ
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A23X08KRDJKF7
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A15FPN5N8TI3Q8
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A1ZD73MDX4POAY
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A1EDI0X3GI1SK7
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A3BMUBUC1N77U8
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A1WSLZ5AVVHLRX
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A2ZBW1GVAXYGNI
+45,golden halter top,477.46,TShirt,3,golden halter top.jpg ,A3H4C425X1H2H9
+46,green off-shoulder top,488.04,TShirt,5,green off-shoulder top.jpg  ,A17D7RRY5F6Q6E
+47,gucci tee,334.78,TShirt,4,gucci tee.jpg  ,AYL6T95NTTYCT
+48,halter top,469.47,TShirt,4,halter top.jpg,ARG1JEPRCUDQT
+48,halter top,469.47,TShirt,4,halter top.jpg  ,A3BPE4JK9G2SIE
+48,halter top,469.47,TShirt,4,halter top.jpg,AVRFGGCCCR6QU
+48,halter top,469.47,TShirt,4,halter top.jpg,ARW08E970C4A4
+48,halter top,469.47,TShirt,4,halter top.jpg,AKUNHU70LFK6E
+48,halter top,469.47,TShirt,4,halter top.jpg,A156MPSDULFFO5
+48,halter top,469.47,TShirt,4,halter top.jpg,A1RJD803EYM353
+48,halter top,469.47,TShirt,4,halter top.jpg,A3UOSOCRKS3WIH
+48,halter top,469.47,TShirt,4,halter top.jpg,AWE6E7DWGGWN7
+48,halter top,469.47,TShirt,4,halter top.jpg,A3PRSCGIX3NY0X
+48,halter top,469.47,TShirt,4,halter top.jpg,A1RGY08MHYC8AG
+48,halter top,469.47,TShirt,4,halter top.jpg,AQJ9VAGG0QKEH
+48,halter top,469.47,TShirt,4,halter top.jpg,A3NFODKXP6LXLV
+48,halter top,469.47,TShirt,4,halter top.jpg,A36JCYNJG4Q2W6
+48,halter top,469.47,TShirt,4,halter top.jpg,A2XPU8EMY19NBQ
+48,halter top,469.47,TShirt,4,halter top.jpg,A1FAOXB8IJS99K
+49,happy dog kids tee,409.7,TShirt,4,happy dog kids tee.jpg  ,A19X9H8DC3U31K
+50,high society tee,407.01,TShirt,4,high society tee.jpg  ,A32XX53PIYV78T
+51,infinity gram,368.2,TShirt,4,infinity gram.jpg  ,A1G1B7UE7D675U
+52,japanesecardigan,463.08,TShirt,5,japanesecardigan.jpg  ,A778X9CUE16YO
+53,just do it,321.85,TShirt,4,just do it.jpg  ,A1E9C49T7E6GKV
+54,kids tshirt,365.99,TShirt,5,kids tshirt.jpg  ,A2G2K3OC74CPFZ
+55,kurthi,440.88,TShirt,5,kurthi.jpg  ,A371ZZ95ZQEIZV
+56,many moods cat tshirt,443.42,TShirt,5,many moods cat tshirt.jpg  ,A17BX6ISOLKLXM
+57,me day,341.48,TShirt,3,me day.jpg  ,A1SJ4E4I684N6M
+58,monster tee,446.71,TShirt,2,monster tee.jpg  ,A3A5LQ5T7M7I8V
+59,moods,323.49,TShirt,4,moods.jpg  ,A18SGGRTJKKHR3
+60,moviedate printed tee,404.02,TShirt,2,moviedate printed tee.jpg  ,A2ZSAJ28QS6Z68
+61,navy blue shirt,406.04,TShirt,3,navy blue shirt.jpg  ,A2UUNC4CW16062
+62,nike tee,329.07,TShirt,4,nike tee.jpg  ,A7060R14RJF3I
+63,off shoulder top,355.6,TShirt,2,off shoulder top.jpg  ,AIHN98QLUVU7E
+64,off-shoulder black top,466.24,TShirt,4,off-shoulder black top.jpg  ,A3RCX7Z7I9G2MF
+65,oh lala,339.9,TShirt,3,oh lala.jpg  ,A1JLEDHBYBOLG2
+66,onsdale,472.11,TShirt,4,onsdale.jpg  ,A3GG0HR8199P8Z
+67,orange jersey,380.38,TShirt,4,orange jersey.jpg  ,A3R0H2RJY9DM99
+68,orange tshirt,427.89,TShirt,5,orange tshirt.jpg  ,A26QCCO0101CO1
+69,org-brand,402.55,TShirt,3,org-brand.jpg  ,APBF796U7GUTV
+70,paris shirt,431,TShirt,2,paris shirt.jpg  ,A3T1DE9OZLLLWG
+71,patterened top,382.52,TShirt,4,patterened top.jpg  ,AUCYYUP15XJA
+72,pink plain tee,467.52,TShirt,2,pink plain tee.jpg  ,A14V9YT3C4QRPW
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,A1HRZF7BQSCLUC
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,AZPT44204EODM
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,A1TDQTL9185HTU
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,A6DI4IE8MKFYR
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,A1CE42YCMQ3FEX
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,A1VYNYUM57GAM0
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,A1C1XLRK3R841B
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,AF6352V65ZNG1
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,AFS5ZGZ2M3ZGV
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,AH5FPXRBVFP0B
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,A1FXZJ8ZMQLYBS
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,A2HLNXOYLMERTC
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,A2ULCET06LOPBB
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,A95VB9FYXW5XJ
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,A3CCITVF0WL6KE
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,AYZ54MQJUM3NV
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,AYQNWE3AX4H08
+73,pink ruffle top,476.39,TShirt,2,pink ruffle top.jpg  ,A3P2ZN0QGUALHG
+74,pink tee,473.99,TShirt,2,pink tee.jpg  ,AS2KRDSIWBM2P
+75,pink top,339.85,TShirt,5,pink top.jpg  ,ALL8RBDZK0WWO
+76,plain grey tshirt,303.69,TShirt,5,plain grey tshirt.jpg  ,A33MVR4OT3321
+77,plain white top,386.7,TShirt,3,plain white top.jpg  ,A3P24ZSF9IQRJJ
+78,poirpug tee,481.03,TShirt,3,poirpug tee.jpg  ,A2YYH2I9S9TUCM
+79,polca dots tee,463.05,TShirt,5,polca dots tee.jpg  ,A3PY6TQYAZG7MB
+80,pretty tshirt,423.01,TShirt,2,pretty tshirt.jpg  ,A7SPHMIUOO3H1
+81,purple top,321.28,TShirt,2,purple top.jpg  ,A1JI3XL5ME8CWM
+82,red black tee,341.74,TShirt,5,red black tee.jpg  ,AIRPOKZ4206EG
+83,red plain tee,313.64,TShirt,2,red plain tee.jpg  ,A320EVMBXQI9B8
+84,redcardigan,440.89,TShirt,4,redcardigan.jpg  ,AQBLWW13U66XD
+85,scenery top,371.21,TShirt,3,scenery top.jpg  ,A2JQZJVI9DS6R6
+86,shark and surf,498.71,TShirt,5,shark and surf.jpg  ,AEBGTLDMLWZO4
+87,sleeveless pattern top,371.6,TShirt,3,sleeveless pattern top.jpg  ,A70MDVX1NI1MM
+88,spiderman tshirt,391.71,TShirt,5,spiderman tshirt.jpg  ,A1WT0YXXFDUY46
+89,star tshirt,423.2,TShirt,5,star tshirt.jpg  ,A2DO34E3J21CRT
+90,stripped tee,456.14,TShirt,5,stripped tee.jpg  ,A1079KKA0AXSL3
+91,strippedtshirt,368.6,TShirt,4,strippedtshirt.jpg  ,A3NNSGACHBM7MK
+91,strippedtshirt,368.6,TShirt,3,strippedtshirt.jpg  ,A3CK3T0E4C99CJ
+91,strippedtshirt,368.6,TShirt,5,strippedtshirt.jpg  ,AUKEU9CW56TT4
+91,strippedtshirt,368.6,TShirt,3,strippedtshirt.jpg  ,A3UNB8ASV0YNCN
+91,strippedtshirt,368.6,TShirt,4,strippedtshirt.jpg  ,A2BWX768VJ5QFS
+91,strippedtshirt,368.6,TShirt,5,strippedtshirt.jpg  ,AYIMC83D50LGH
+91,strippedtshirt,368.6,TShirt,5,strippedtshirt.jpg  ,A21VE3LW3ZQ7KZ
+91,strippedtshirt,368.6,TShirt,3,strippedtshirt.jpg  ,A2IYE9D2TEIDYV
+91,strippedtshirt,368.6,TShirt,5,strippedtshirt.jpg  ,A1Z3FKFCMLSMG3
+91,strippedtshirt,368.6,TShirt,4,strippedtshirt.jpg  ,A28YQET4K11XVA
+91,strippedtshirt,368.6,TShirt,4,strippedtshirt.jpg  ,AYRHK2GGO4VFU
+92,summer shirt,434.03,TShirt,5,summer shirt.jpg  ,A3130BH1Z7OPD2
+93,summer tshirt,462.19,TShirt,4,summer tshirt.jpg  ,AGWAOGY3WTN4X
+94,superior bicycle,317.43,TShirt,5,superior bicycle.jpg  ,A1L5LHGAUIIEOU
+95,surf tee,403.17,TShirt,2,surf tee.jpg  ,A23A7OH3AM0PDA
+96,turk telekom tee,473.91,TShirt,5,turk telekom tee.jpg  ,A12AU3CNAWYO5D
+97,union trade,382.24,TShirt,4,union trade.jpg  ,A5O0P0JV6PLU3
+98,v neck tshirt,469.32,TShirt,4,v neck tshirt.jpg  ,A3TY97QXQ6ZFSQ
+99,white fairy top,305.67,TShirt,3,white fairy top.jpg  ,A2LKVJ3HM9FKUE
+100,white plain tshirt,380.11,TShirt,2,white plain tshirt.jpg  ,A35QI2GKW8K230
+101,white top,315.68,TShirt,2,white top.jpg  ,A4VTUX8VGLMAW
+102,white top,379.73,TShirt,4,white top.jpg  ,A27X48PMUGK6U4
+103,whitejeans,332.7,TShirt,2,whitejeans.jpg  ,A36B6D7RXI94JR
+104,yello tshirt,435.66,TShirt,5,yello tshirt.jpg  ,A2KQDWZZUBBNOJ
+105,you&me tee,331.89,TShirt,2,you&me tee.jpg  ,AW90C3YRHB3TG
+106,black fluffy skirt,456,Skirt,4,black fluffy skirt.jpg  ,A2IXNEHMM685C9
+107,black jeans skirt,350,Skirt,2,black jeans skirt.jpg  ,A27XULAA9X5ZGQ
+108,black jeans skirt,464,Skirt,2,black jeans skirt.jpg  ,A3OB8MSEUT2B0F
+109,black leather chain skirt,335,Skirt,5,black leather chain skirt.jpg  ,A4CUFSZBWO8HR
+110,black pencil skirt,380,Skirt,2,black pencil skirt.jpg  ,A3DIXHIECTEKV2
+111,cherry red leather skirt,371,Skirt,5,cherry red leather skirt.jpg  ,A1BAAIX0K2960C
+112,cute pink skirt,393,Skirt,2,cute pink skirt.jpg  ,A3TTQNM920Q30O
+113,denim skirt,360,Skirt,2,denim skirt.jpg  ,AWYAJCVLQNJK8
+114,flower short skirt,305,Skirt,3,flower short skirt.jpg  ,A3IIGCFLKVFW8M
+115,flowery midi skirt,353,Skirt,5,flowery midi skirt.jpg  ,A1C4BMQQXOQD80
+116,flowy black skirt,434,Skirt,3,flowy black skirt.jpg  ,A2NJJGX3EMM4KB
+117,flowy long skirt,432,Skirt,3,flowy long skirt.jpg  ,A1YFZQQLQ3QZHK
+118,fluffy orange skirt,431,Skirt,2,fluffy orange skirt.jpg  ,ATWS0VHG8NOUZ
+119,green flower,384,Skirt,3,green flower.jpg  ,AYGDF2QFY2ZZ3
+120,green flowery,475,Skirt,4,green flowery.jpg  ,A2063NNYWR4B7J
+121,long hippie skirt,356,Skirt,3,long hippie skirt.jpg  ,A108UXJTIV8XXY
+122,long white midi skirt,456,Skirt,2,long white midi skirt.jpg  ,A35TCV053U9AHN
+123,mini korean skirt,422,Skirt,3,mini korean skirt.jpg  ,A3ON9HIKV7GO6K
+124,orange pencil skirt,361,Skirt,5,orange pencil skirt.jpg  ,A13S3RBHK5T968
+125,orange skirt,388,Skirt,3,orange skirt.jpg  ,A20VSTDILG9K7H
+126,pencil skirt,319,Skirt,4,pencil skirt.jpg  ,A1Y7I43UEGKDN7
+127,pencil skirt short,452,Skirt,5,pencil skirt short.jpg  ,A3LUBQ6HTHQC9C
+128,polca dot midi skirt,379,Skirt,5,polca dot midi skirt.jpg  ,AGG3RTQFN3OJ4
+129,red long skirt,430,Skirt,4,red long skirt.jpg  ,A1EWPEGJYIX23N
+130,short summer skirt,435,Skirt,5,short summer skirt.jpg  ,AVOYMPC2XY63V
+131,white short skirt,457,Skirt,3,white short skirt.jpg  ,A3VKO21KYDJQ2W
+132,adidas shoes,432,Shoes,2,adidas shoes.jpg,A1MSO6LERG39PC
+133,baby bow shoes,440,Shoes,4,baby bow shoes.jpg,A20Q4FIBCAG2ZV
+134,baby shoes,462,Shoes,2,baby shoes.jpg,A2LDAK4G15UOQ6
+135,black heels,401,Shoes,3,black heels.jpg,A1980MGZXSGJP
+136,black long boots,342,Shoes,3,black long boots.jpg,AQI418NDK5GF3
+136,black long boots,342,Shoes,3,black long boots.jpg,A2QDYDMCPU68U5
+136,black long boots,342,Shoes,3,black long boots.jpg,A35DGOWXUZYTWS
+136,black long boots,342,Shoes,3,black long boots.jpg,A1JOEW6J1H9CXX
+136,black long boots,342,Shoes,3,black long boots.jpg,A1GLL5CJ1SFAMS
+136,black long boots,342,Shoes,3,black long boots.jpg,A3GYJW3I6Q5AXG
+136,black long boots,342,Shoes,3,black long boots.jpg,A1SFB394R1NHNB
+136,black long boots,342,Shoes,3,black long boots.jpg,A2683OJ85CLWFA
+136,black long boots,342,Shoes,3,black long boots.jpg,AXBF39GC4I2EC
+137,black plain shoe,318,Shoes,5,black plain shoe.jpg,A2MBXZ1XGBUFA
+138,black shoes,459,Shoes,2,black shoes.jpg,A226W9HO3YVYUG
+139,black sports shoe,355,Shoes,2,black sports shoe.jpg,A2UWRQFJ9OIM9L
+140,blue shoes,495,Shoes,2,blue shoes.jpg,A14C5D25SZWFLX
+141,blue slipper,482,Shoes,5,blue slipper.jpg,AXDW3OXL1ANL4
+142,blue trekking shoes,477,Shoes,2,blue trekking shoes.jpg,A3M6S7Y1FNPOLD
+143,brown boots,340,Shoes,3,brown boots.jpg,A1GSL1M8TPUSB2
+144,brown flat,326,Shoes,3,brown flat.jpg,A2C4WL8NYM7Q0I
+145,brown high boots,412,Shoes,3,brown high boots.jpg,A1VVJLWQ15YTYV
+146,brown mary jane,457,Shoes,2,brown mary jane.jpg,AOU1TM9UA1BZF
+147,brown mens leather shoe,422,Shoes,3,brown mens leather shoe.jpg,A3S5643F4JNLQQ
+148,brown platform shoes,400,Shoes,4,brown platform shoes.jpg,A1HT4T3HR2W9VG
+149,brown shoes,459,Shoes,4,brown shoes.jpg,AJIA55AVU0CUS
+150,classy fur boots,366,Shoes,5,classy fur boots.jpg,A36VF2I8ILFJH1
+151,crocs,490,Shoes,4,crocs.jpg,A106YUCY4SVX1D
+152,cute flats,333,Shoes,4,cute flats.jpg,A1YVXAIV87Z3LM
+153,cute slip in,499,Shoes,3,cute slip in.jpg,A3U6HVI3EWAZWU
+154,glittery black heels,481,Shoes,5,glittery black heels.jpg,A3V0W3FHKL6468
+155,gothic heels,454,Shoes,5,gothic heels.jpg,A3C51ESBUD8QAJ
+156,green crocs,306,Shoes,4,green crocs.jpg,A32YYOS0T4NVG1
+157,green shoes,482,Shoes,3,green shoes.jpg,A1OO6OKFFDBXNW
+158,green sports shoe,348,Shoes,3,green sports shoe.jpg,A3IC6OB22INS9
+159,jeans shoe,342,Shoes,3,jeans shoe.jpg,A2F1XPTGEADV8R
+160,kids crocs,304,Shoes,3,kids crocs.jpg,A3ISZ8KLXYYI7P
+161,kids pink shoe,340,Shoes,4,kids pink shoe.jpg,A3RD1GFFLG12YC
+162,kids shoe pretty,320,Shoes,2,kids shoe pretty.jpg,A1SR2IFR1CBPQW
+163,kids shoe,455,Shoes,3,kids shoe.jpg,A1JKBJEKH5GXIT
+164,leather boots,313,Shoes,5,leather boots.jpg,A2QG84ZEFKUISL
+165,leather shoes,355,Shoes,5,leather shoes.jpg,A26FS7F997E7SI
+166,lou bouttin,421,Shoes,3,lou bouttin.jpg,A2QB7E7X3RURZ2
+167,mickey mouse kids shoe,488,Shoes,3,mickey mouse kids shoe.jpg,A263GC6WFHUY4Z
+168,onitsuka tiger,418,Shoes,2,onitsuka tiger.jpg,A33DH1NN4OOKX3
+169,pink crocs,318,Shoes,4,pink crocs.jpg,A25EIC1CXMA1DO
+170,pink sports shoe,483,Shoes,3,pink sports shoe.jpg,A2EJJTOWAEL7SJ
+171,plastic slipper,345,Shoes,4,plastic slipper.jpg,A2MQ47BBL7F6B6
+172,red heels,423,Shoes,2,red heels.jpg,A3QH8VQDE7HZCR
+173,red kids shoe,370,Shoes,3,red kids shoe.jpg,A2UMQGIOIQ2ZJ9
+174,red kids shoes,308,Shoes,4,red kids shoes.jpg,A2RNG3LFW5CFKX
+175,red pencil heel,437,Shoes,3,red pencil heel.jpg,A25DO9Q43GE6WK
+176,sandle,397,Shoes,4,sandle.jpg,A2LSIS2A2CNLVL
+177,slipper,306,Shoes,2,slipper.jpg,A26UWC5UI7XLY2
+178,snake pattern high heels,462,Shoes,4,snake pattern high heels.jpg,A1MDERNKA03DON
+179,spider kids shoe,454,Shoes,3,spider kids shoe.jpg,A1HZ68B7UMNWVW
+180,sports shoes,438,Shoes,3,sports shoes.jpg,A3KWKARBHBSQZF
+181,trekking,457,Shoes,2,trekking.jpg,A6J8D9V5S9MBE
+182,vintage brown shoe,376,Shoes,2,vintage brown shoe.jpg,A3Q95HLHAUC34M
+183,white flat,457,Shoes,2,white flat.jpg,A3UBDM2OA2Y3I9
+184,white kids shoes,317,Shoes,5,white kids shoes.jpg,A1AT5LYGF3T3BJ
+185,women trekking,334,Shoes,4,women trekking.jpg,A2VEU4GLPJUFNP
+186,black hoodie,408,Hoodie,2,black hoodie.jpg,A143ONYTRZY3SF
+187,blue hoodie,422,Hoodie,2,blue hoodie.jpg,A2ASX8RGDVFNOG
+188,carhartt hoodie,455,Hoodie,4,carhartt hoodie.jpg,A3D1X3ZYUWR0Z9
+189,cream hoodie,382,Hoodie,2,cream hoodie.jpg,AYNGELTTLBXVN
+190,dark red hoodie,336,Hoodie,4,dark red hoodie.jpg,A3NMAV0XRHOS1U
+191,gray adidas hoodie,452,Hoodie,4,gray adidas hoodie.jpg,AIGTSPP6PLJJW
+192,gray cropped hoodie,356,Hoodie,3,gray cropped hoodie.jpg,A3TF6PPEYAQ1KX
+193,green long hoodie,317,Hoodie,3,green long hoodie.jpg,A2MJNFUQS2FG92
+194,orange adidas hoodie,426,Hoodie,4,orange adidas hoodie.jpg,A37Z3QW5ZDJLSZ
+195,pink cropped hoodie,366,Hoodie,2,pink cropped hoodie.jpg,A21DCEYSAP2KM8
+196,pink hoodie,499,Hoodie,2,pink hoodie.jpg,A2UZQ5I2XLQYXD
+197,pink you hoodie,340,Hoodie,3,pink you hoodie.jpg,A2I8I2LLVE9U6G
+198,purple hoodie,441,Hoodie,4,purple hoodie.jpg,A39Z4OU2C7ENWH
+199,reebok gray hoodie,468,Hoodie,3,reebok gray hoodie.jpg,A1UJX9NC57TW5N
+200,two coloured hoodie,343,Hoodie,3,two coloured hoodie.jpg,A1FQOCN6SNXNG6
+201,white ballerina hoodie,374,Hoodie,5,white ballerina hoodie.jpg,AY7Y69EUL5GGL
+202,baby cap,337,Hat,3,baby cap.jpg,A31QWH1JR60A5F
+203,bamboo hat,472,Hat,2,bamboo hat.jpg,A2C0L77SWTXMOV
+204,classic black beanie,321,Hat,4,classic black beanie.jpg,A2E5IK9TUH8UPD
+205,black reebok hat,395,Hat,4,black reebok hat.jpg,A3QWCGS4OS44UP
+206,black shiny hat,322,Hat,3,black shiny hat.jpg,A3UBY3ND3TTNL3
+207,black striped beanie,427,Hat,3,black striped beanie.jpg,A3TBIJHR03ELEQ
+208,blue beanie,419,Hat,5,blue beanie.jpg,AX3OXHFIKAE4R
+209,blue cap,365,Hat,5,blue cap.jpg,A3QRE0I5HSC332
+210,blue hat,393,Hat,2,blue hat.jpg,A1C55HT82Y70AE
+211,frog kids hat,455,Hat,5,frog kids hat.jpg,A1EJKPTGO474WN
+212,gamer blue beanie,304,Hat,2,gamer blue beanie.jpg,AEQR0VUFBZXUY
+213,gray hat,486,Hat,4,gray hat.jpg,AKBZI91RTIXM6
+214,kids beanie,402,Hat,5,kids beanie.jpg,A1XQEYP8NDJIGH
+215,leather black hat,333,Hat,2,leather black hat.jpg,A1VL1D97E9PJGX
+216,mh cap,340,Hat,3,mh cap.jpg,A2RHDVCXQVFFXM
+217,orange cap,460,Hat,3,orange cap.jpg,A32QNTFPVVY3P4
+218,patterned hat,301,Hat,3,patterned hat.jpg,A2HG19HOW4IZ7L
+219,pink beanie,369,Hat,2,pink beanie.jpg,AGZ1HS2KBSFRG
+220,pink butterfly cap,400,Hat,2,pink butterfly cap.jpg,A1NOPFD9YTMXHB
+221,pink hat,489,Hat,5,pink hat.jpg,A1CWI7TXJW674Q
+222,sherpa hat,485,Hat,3,sherpa hat.jpg,A11XEQWME3DHFF
+223,ugly hat,337,Hat,3,ugly hat.jpg,A2S089YNV6Y2D1
+224,white big hat,416,Hat,4,white big hat.jpg,A2SKYCFKIOGG19
+225,white hat,375,Hat,4,white hat.jpg,AL4WX7LL4ISYK
+226,white old men cap,342,Hat,5,white old men cap.jpg,A3OTY3KB4OG9FO
+227,white one kiss beanie,433,Hat,3,white one kiss beanie.jpg,A1BMBZNUA3H10M
+228,white rose beanie,399,Hat,2,white rose beanie.jpg,A1HYHOBZPJKY1I
+229,yellow kkh cap,300,Hat,4,yellow kkh cap.jpg,ALP4IUKDBJ0EO
+230,yellow loro parque cap,300,Hat,2,yellow loro parque cap.jpg,A3GCTN5ZPQT657
+231,beige offshoulder dress,361,Dress,5,beige offshoulder dress.jpg,A13BWQDECDDVIZ
+232,black bodycon,449,Dress,5,black bodycon.jpg,A1M7VPG9Q6JEO8
+233,black dress top,495,Dress,4,black dress top.jpg,A20UDOT1F361T2
+234,black dress,420,Dress,4,black dress.jpg,A25I5Q55UL8MT3
+235,black fullcoverage dress,331,Dress,4,black fullcoverage dress.jpg,A3UA6U3K0R6PDY
+236,black long dress,464,Dress,2,black long dress.jpg,A12XCRHPREC51Y
+237,black onepice,371,Dress,5,black onepice.jpg,A1QBVPRRBYL5US
+238,black onepiece,332,Dress,2,black onepiece.jpg,A3QPJS71FU70MX
+239,black polca dots dress,341,Dress,4,black polca dots dress.jpg,A1HAF9KEUQHT5F
+240,black polca dots,476,Dress,4,black polca dots.jpg,A2PCG95PZLF92Q
+241,black romper,434,Dress,4,black romper.jpg,A28DLVVZMHTAPN
+242,black sleeveless dress,434,Dress,4,black sleeveless dress.jpg,A34895BBYDUOG7
+243,black striped doll dress,440,Dress,3,black striped doll dress.jpg,A1SS291G5X84WC
+244,blue dress,452,Dress,2,blue dress.jpg,A1RPEK98P97J7W
+245,blue kids dress,305,Dress,5,blue kids dress.jpg,ABBPDSBNGEYRU
+246,blue top,395,Dress,5,blue top.jpg,AYKXABHFBFGJX
+247,blue tube dress,442,Dress,4,blue tube dress.jpg,A1B8LOW1DH3HZY
+248,blue two pice dress,356,Dress,2,blue two pice dress.jpg,A17PJXD7YBSD8F
+249,brown bodycon dress,480,Dress,4,brown bodycon dress.jpg,A36VRTU7YUGH39
+250,brown bow dress,498,Dress,2,brown bow dress.jpg,A1V8UZ63FQD382
+251,brown cottagecore top,470,Dress,2,brown cottagecore top.jpg,A2A3B0JX2JRS6S
+252,brown long woolen dress,346,Dress,3,brown long woolen dress.jpg,A1ZPEZMQBCTZQN
+253,brown top,357,Dress,5,brown top.jpg,A2OGXHE7PVLTOE
+254,flowers black top flowy top,488,Dress,3,flowers black top flowy top.jpg,A3OYE7X2O08LNT
+255,gray office work dress,319,Dress,2,gray office work dress.jpg,A1RKIVV5VR3RJ8
+256,green dress,301,Dress,2,green dress.jpg,A31KBWBVXWUCSR
+257,kids blue dress,408,Dress,3,kids blue dress.jpg,A1KECIKIWDB4HH
+258,kids dress,436,Dress,4,kids dress.jpg,A2YIXN1SNPWV0A
+259,kids one piece,478,Dress,2,kids one piece.jpg,A2LR9WP2JGDT8E
+260,kids onepiece,460,Dress,5,kids onepiece.jpg,A1TSQF40H4MIWM
+261,kids white dress,360,Dress,2,kids white dress.jpg,A3DBMXKKJMO910
+262,kids white flowy dress,353,Dress,2,kids white flowy dress.jpg,A23AF9X5323ME3
+263,kids white onepice,450,Dress,4,kids white onepice.jpg,A18FTRFQQ141CP
+264,long flowy dres,418,Dress,2,long flowy dres.jpg,AE1L7FJUVT661
+265,long sleeved dress,452,Dress,5,long sleeved dress.jpg,A1M17ZTK354P6Y
+266,navy blue dress,321,Dress,4,navy blue dress.jpg,A3D8NXND1ALT91
+267,one pice flowy ,391,Dress,2,one pice flowy.jpg,A1XEYWWDJ09OEA
+268,pink maxi dress,347,Dress,2,pink maxi dress.jpg,A2JMN2JA9LSHVL
+269,pink short dress,497,Dress,5,pink short dress.jpg,A3ATF868IEP191
+270,pink top,428,Dress,4,pink top.jpg,A1YQJNKIMRBU1M
+271,pink tshirt dress,491,Dress,4,pink tshirt dress.jpg,A2D6D5MUX0SP2H
+272,purple dress,367,Dress,3,purple dress.jpg,AXREKH8MC9S3X
+273,purple one piece,349,Dress,4,purple one piece.jpg,A3VZ53R6F842QZ
+274,red dress,476,Dress,5,red dress.jpg,A14O9P3DV5EHKO
+275,red kids dress,354,Dress,2,red kids dress.jpg,A27WRC8KIFFTWS
+276,red polca onepice,379,Dress,2,red polca onepice.jpg,AVHB9LLVCTEKY
+277,red&black dress,401,Dress,5,red&black dress.jpg,A1BFGWPAR3XE0Y
+278,rocky skirt dress,376,Dress,5,rocky skirt dress.jpg,A38IZ9GUFJ28AP
+279,skyblue kids dress,469,Dress,5,skyblue kids dress.jpg,A153SN02P05UXE
+280,sleeveless kurthi dress,472,Dress,5,sleeveless kurthi dress.jpg,A3F9NDKO3GFOCH
+281,striped tops,425,Dress,2,striped tops.jpg,A1KI8R3FT71PPK
+282,tiger printed dress,328,Dress,2,tiger printed dress.jpg,A38KYGIUKF2MFU
+283,white flowers dress,446,Dress,3,white flowers dress.jpg,AIJWAL4ZGCK2F
+284,white sleveless top,491,Dress,2,white sleveless top.jpg,A2GPNXFUUV51ZZ
+285,white top,330,Dress,3,white top.jpg,A3CLWR1UUZT6TG
+286,yellow dress,353,Dress,3,yellow dress.jpg,A12ZCHX2T8Z952
+287,yellow kids dress,331,Dress,3,yellow kids dress.jpg,A3GJT8MVRII6PJ
+288,orange dress,455,Dress,5,orange dress.jpg,A38DTJURWNUQTZ

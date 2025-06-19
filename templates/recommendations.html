@@ -1,0 +1,10 @@
+{% if error %}
+  <p>{{ error }}</p>
+{% else %}
+  <h2>Recommended Products</h2>
+  <ul>
+    {% for product in products %}
+      <li>{{ product.name }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}

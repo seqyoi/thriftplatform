@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Thrift Shop Product Listing and Detail</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fefefe;
+    color: #2d3436;
+    padding-bottom: 80px;
+}
+    
+/* Header */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #F8D0C8;
+    padding: 20px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    gap: 20px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: #35522B;
+    min-width: 100px;
+     margin-right: 40px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+    flex: 1; /* Make it fill space between logo and buttons */
+  justify-content: center;
+}
+
+.nav-links a {
+    color: #35522B;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #799567;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.btn {
+    background-color: #799567;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+     white-space: nowrap;
+    transition: background-color 0.3s ease;
+     display: inline-block;
+}
+
+.btn:hover {
+    background-color: #5B744B;
+}
+
+.signin {
+    background: transparent;
+    border: 2px solid #35522B;
+    color: #35522B;
+}
+
+.signin:hover {
+    background-color: #35522B;
+    color: white;
+}
+
+.signup {
+    background-color: #ffeaa7;
+    color: #2d3436;
+}
+
+.signup:hover {
+    background-color: #fdcb6e;
+    color: #2d3436;
+}
+
+    .products-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .product-container {
+      width: 300px;
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .product-container:hover {
+      transform: translateY(-5px);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .product-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-top: 15px;
+      color: #35522B;
+    }
+
+    .product-price {
+      font-size: 18px;
+      color: #799567;
+      margin: 10px 0;
+      font-weight: bold;
+    }
+
+    .product-description {
+      font-size: 14px;
+      margin-bottom: 15px;
+      color: #2d3436;
+    }
+
+    .buy-button {
+      padding: 10px 20px;
+      background-color: #799567;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    .buy-button:hover {
+      background-color: #5B744B;
+    }
+
+    /* Detail Page Styling */
+    .product-detail-container {
+      max-width: 900px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      display: none;
+      gap: 40px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .product-detail-container.active {
+      display: flex;
+    }
+
+    .product-image.detail-image {
+      width: 500px;
+      height: 500px;
+      object-fit: cover;
+      border-radius: 50px;
+      flex-shrink: 0;
+    }
+
+    .product-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .shop-name {
+      font-style: italic;
+      color: #636e72;
+      margin-top: 5px;
+    }
+
+    .quantity {
+      font-size: 16px;
+      margin-top: 20px;
+      font-weight: 600;
+    }
+
+    .actions {
+      margin-top: 30px;
+      display: flex;
+      gap: 15px;
+    }
+
+    .chat-button {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #dfe6e9;
+      color: #2d3436;
+    }
+
+    .chat-button:hover {
+      background-color: #b2bec3;
+    }
+
+    .back-button {
+      margin: 20px auto;
+      display: block;
+      background-color: #d63031;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      max-width: 200px;
+      text-align: center;
+    }
+
+    .back-button:hover {
+      background-color: #b71c1c;
+    }
+    .section-title {
+    text-align: center;
+    font-size: 28px;
+    margin-top: 40px;
+    color: #35522B;
+}
+
+
+
+  </style>
+</head>
+<body>
+ {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+  <header class="navbar">
+    <div class="logo">Thriftify</div>
+    <nav class="nav-links">
+      <a href="{% url 'home' %}" >Home</a>
+      <a href="{% url 'shop' %}">Shop</a>
+      <a href="{% url 'category_list' %}">Categories</a>
+      <a href="#">Contact</a>
+    </nav>
+    <div class="nav-buttons">
+      {% if user.is_authenticated %}
+        <span>Welcome, {{ user.username }}</span>
+        <a href="{% url 'logout' %}" class="btn">Logout</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="btn signin">Sign In</a>
+        <a href="{% url 'register' %}" class="btn signup">Sign Up</a>
+      {% endif %}
+   </div>
+  </header>
+  <!-- Product List Section -->
+  <h2 class="section-title">Items</h2>
+  <div id="productList" class="products-wrapper"></div>
+
+  <!-- Product Detail Section -->
+  <div id="productDetail" class="product-detail-container">
+    <img id="detailImage" class="product-image detail-image" src="" alt="Product Image" />
+    <div class="product-info">
+      <div class="product-title" id="detailTitle"></div>
+      <div class="product-description" id="detailDesc"></div>
+      <div class="product-price" id="detailPrice"></div>
+      <div class="shop-name" id="detailShop"></div>
+      <div class="quantity">Quantity: 1</div>
+      <div class="actions">
+        <button class="buy-button">Buy Now</button>
+        <button class="chat-button">Live Chat</button>
+      </div>
+    </div>
+  </div>
+
+  <button class="back-button" onclick="showProductList()" style="display: none;" id="backBtn">← Back to Products</button>
+
+  <script>
+    const products = [
+      {
+        title: "Canvas Shoulder Bag",
+        price: "399.99",
+        desc: "Stylish and durable canvas shoulder bag featuring a Totoro-themed design.",
+        image: "/static/images/shoulderbag.jpg",
+        shop: "Totoro Style"
+      },
+      {
+        title: "Blue Shirt",
+        price: "599.99",
+        desc: "Ideal for both casual and formal occasions.",
+        image: "/static/images/blueshirt.jpg",
+        shop: "Classic Attire"
+      },
+      {
+        title: "Strip T-shirt",
+        price: "499.99",
+        desc: "Soft and breathable striped t-shirt for everyday wear.",
+        image: "/static/images/strippedtshirt.jpg",
+        shop: "Daily Comfort"
+      },
+      {
+        title: "Grey Cardigan",
+        price: "599.99",
+        desc: " Comfortable grey cardigan with a modern fit.",
+        image: "/static/images/GreyCardigan.jpg",
+        shop: "Classic Attire"
+      },
+      {
+        title: "white jeans",
+        price: "599.99",
+        desc: "Comfortable jean with a modern fit.",
+        image: "/static/images/whitejeans.jpg",
+        shop: "Classic Attire"
+      },
+       {
+        title: "washed jeans",
+        price: "599.99",
+        desc: "Comfortable pant with a modern fit.",
+        image: "/static/images/washedjeans.jpg",
+        shop: "Classic Attire"
+      },
+       {
+        title: "Cherry Red Cardigan",
+        price: "599.99",
+        desc: "Comfortable cardigan with a modern fit.",
+        image: "/static/images/RedCardigan.jpg",
+        shop: "Classic Attire"
+      },
+      {
+        title: "japanese highschool cardigan",
+        price: "699.99",
+        desc: "Comfortable cardigan with a modern fit.",
+        image: "/static/images/japanesecardigan.jpg",
+        shop: "Classic Attire"
+      }
+      // Add more products as needed
+    ];
+
+    const productListEl = document.getElementById("productList");
+
+    products.forEach(product => {
+      const container = document.createElement("div");
+      container.className = "product-container";
+      container.onclick = () => showDetail(product);
+
+      container.innerHTML = `
+        <img class="product-image" src="${product.image}" alt="${product.title}" />
+        <div class="product-title">${product.title}</div>
+        <div class="product-price">Rs ${product.price}</div>
+        <div class="product-description">${product.desc}</div>
+        <button class="buy-button">Add to Cart</button>
+      `;
+      productListEl.appendChild(container);
+    });
+
+    function showDetail(product) {
+      document.getElementById("productList").style.display = "none";
+      const detail = document.getElementById("productDetail");
+      detail.classList.add("active");
+      document.getElementById("backBtn").style.display = "block";
+
+      document.getElementById("detailImage").src = product.image;
+      document.getElementById("detailImage").alt = product.title;
+      document.getElementById("detailTitle").textContent = product.title;
+      document.getElementById("detailDesc").textContent = product.desc;
+      document.getElementById("detailPrice").textContent = "Rs " + product.price;
+      document.getElementById("detailShop").textContent = "Shop: " + product.shop;
+    }
+
+    function showProductList() {
+      document.getElementById("productList").style.display = "flex";
+      document.getElementById("productDetail").classList.remove("active");
+      document.getElementById("backBtn").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
