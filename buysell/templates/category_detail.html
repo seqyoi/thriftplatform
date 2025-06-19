@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ category.name }} - Thriftify</title>
+  <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">Thriftify</div>
+  <nav class="nav-links">
+    <a href="{% url 'home' %}">Home</a>
+    <a href="{% url 'shop' %}">Shop</a>
+    <a href="{% url 'category_list' %}">Categories</a>
+    <a href="#">Contact</a>
+  </nav>
+</header>
+
+<section class="search-bar">
+  <h2>Choose Category</h2>
+  {% for cat in all_categories %}
+    <a href="{% url 'category_detail' cat.id %}" class="category">{{ cat.name }}</a>
+  {% endfor %}
+</section>
+
+<section style="padding: 20px;">
+  <h1>{{ category.name }}</h1>
+
+  {% if images %}
+    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+      {% for img in images %}
+        <div style="width: 220px;">
+          <img src="{{ img.image.url }}" alt="{{ category.name }}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px;">
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No images available for this category.</p>
+  {% endif %}
+</section>
+
+</body>
+</html>
