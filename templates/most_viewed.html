@@ -1,0 +1,7 @@
+
+<h2>Most Viewed Products</h2>
+<ul>
+  {% for product in products %}
+    <li>{{ product.name }} — {{ product.view_count }} views</li>
+  {% endfor %}
+</ul>
