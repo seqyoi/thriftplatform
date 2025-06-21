@@ -58,6 +58,7 @@ class Command(BaseCommand):
             cosine_sim = cosine_similarity(tfidf_matrix)
 
             df['product_id'] = df['product_id'].astype(str).str.strip()
+            df = df.drop_duplicates(subset='product_id').reset_index(drop=True)
             product_ids = df['product_id'].tolist()
             indices = pd.Series(df.index, index=df['product_id'])
 
@@ -65,13 +66,26 @@ class Command(BaseCommand):
            
             recommendations = {}
             for pid in product_ids:
+                if pid not in indices:
+                    continue  # skip if index not found
                 idx = indices[pid]
-                sim_scores = list(enumerate(cosine_sim[idx].flatten()))
-                sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)[1:6]  # skip itself
-                sim_indices = [i[0] for i in sim_scores]
-                recommended_ids = df.iloc[sim_indices]['product_id'].astype(str).tolist()
+                sim_scores = list(enumerate(cosine_sim[idx]))
+                sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
+                
+                recommended_ids = []
+                for i, score in sim_scores:
+                    if i >= len(df):  # avoid out-of-bounds
+                        continue
+                    other_pid = df.iloc[i]['product_id']
+                    if other_pid != pid and other_pid not in recommended_ids:
+                        recommended_ids.append(other_pid)
+                    if len(recommended_ids) == 5:
+                        break
+
                 recommendations[pid] = recommended_ids
+
 
             joblib.dump(recommendations, 'thrifty/data/content_recommendations.pkl')
             joblib.dump(df, 'thrifty/data/products_df.pkl')
             self.stdout.write(f"✅ Saved content-based recommendations for {len(recommendations)} products")
+            self.stdout.write(self.style.SUCCESS("🎯 Recommender training complete."))

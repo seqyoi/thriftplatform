@@ -52,7 +52,17 @@ class Command(BaseCommand):
         # Load products
         created_count = 0
         for _, row in df.iterrows():
-            image_url = f"media/category_images/{row['imagefilename']}" if 'imagefilename' in row else ''
+            # image_url = ''
+            # if 'imagefilename' in row and pd.notna(row['imagefilename']) and row['imagefilename'].strip() != '':
+            #  image_url = f"media/category_images/{row['imagefilename'].strip()}"
+            image_url = f"category_images/{row['imagefilename']}" if 'imagefilename' in row else ''
+            print(row['imagefilename'])  # During loading
+            price = None
+            if 'price' in row and pd.notna(row['price']):
+                        try:
+                            price = float(row['price'])
+                        except ValueError:
+                            price = None     
             
             _, created = Product.objects.update_or_create(
                 product_id=row['product_id'],
@@ -62,6 +72,7 @@ class Command(BaseCommand):
                     'description': row.get('description') if pd.notna(row.get('description')) else '',
                     'image_url': image_url,
                     'rating': float(row.get('rating')) if pd.notna(row.get('rating')) else None, 
+                    'price': price,
                 }
             )
             if created:
