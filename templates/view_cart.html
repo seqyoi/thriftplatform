@@ -3,11 +3,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Thriftify - Home</title>
-   <link rel="stylesheet" href="{% static 'css/style1.css' %}">
-  {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> {% endcomment %}
+  <title>Your Cart - Thriftify</title>
+  <link rel="stylesheet" href="{% static 'css/style1.css' %}">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  
+
 </head>
 <body>
   {% if messages %}
@@ -47,45 +46,36 @@
 </div>
 </header>
 
-
-<section class="search-bar">
-  <h2>Choose Category</h2>
-  {% for cat in all_categories %}
-    <a href="{% url 'category_detail' cat.id %}" class="category">{{ cat.name }}</a>
-  {% endfor %}
-</section>
-
-<section style="padding: 20px;">
-  <h1>{{ category.name }}</h1>
-
-  {% if images %}
-    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-      {% for img in images %}
-        <div style="width: 220px;">
-          <img src="{{ img.image.url }}" alt="{{ category.name }}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px;">
+{% if cart_items %}
+  {% for item in cart_items %}
+    <div class="cart-container">
+      <img src="{% get_media_prefix %}{{ item.product.image_url }}" alt="{{ item.product.name }}" class="cart-image">
+      <div class="cart-info">
+        <h2>{{ item.product.name }}</h2>
+        <p>{{ item.product.description }}</p>
+        <div class="price">Rs {{ item.product.price }}</div>
+        <div class="shop">Shop: {{ item.product.category }}</div>
+        <div class="quantity">Quantity: {{ item.quantity }}</div>
+        <div class="btn-group">
+          <button class="buy-btn">Buy Now</button>
+          <button class="chat-btn">Live Chat</button>
         </div>
-      {% endfor %}
-    </div>
-  {% else %}
-    <p>No images available for this category.</p>
-  {% endif %}
-</section>
-<script>
-  function toggleDropdown() {
-    const dropdown = document.getElementById("profileDropdown");
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-  }
 
-  // Optional: hide dropdown when clicking outside
-  window.onclick = function(event) {
-    if (!event.target.matches('.profile-pic')) {
-      const dropdown = document.getElementById("profileDropdown");
-      if (dropdown && dropdown.style.display === "block") {
-        dropdown.style.display = "none";
-      }
-    }
-  }
-</script>
+        <form method="post" action="{% url 'remove_from_cart' item.product.id %}">
+          {% csrf_token %}
+          <button type="submit" class="remove-btn">Remove from Cart</button>
+        </form>
+      </div>
+    </div>
+  {% endfor %}
+
+  <div class="cart-total">Total: Rs {{ total_price }}</div>
+  <a href="{% url 'checkout' %}">
+    <button class="back-button">Proceed to Checkout</button>
+  </a>
+{% else %}
+  <p style="text-align: center; margin-top: 50px;">Your cart is empty.</p>
+{% endif %}
 
 </body>
 </html>

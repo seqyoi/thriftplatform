@@ -19,7 +19,14 @@ urlpatterns = [
     # path('popular/', views.popular_products_view, name='popular_products'),
     # path('recommend/<int:product_id>/', views.content_based_recommendations, name='content_recommendations'),
     # path('recommendations/', views.recommended_view, name='recommendations'),
-    path('addtocart/<int:product_id>/', views.add_to_cart, name='add_to_cart')
+    path('profile/', views.profile_view, name='profile'),
+    path('profile/edit/', views.edit_profile, name='edit_profile'),
+    path('add-to-cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
+    path('cart/', views.view_cart, name='view_cart'),
+    path('cart/remove/<int:product_id>/', views.remove_from_cart, name='remove_from_cart'),
+    path('checkout/', views.checkout, name='checkout'),
+    path('product/<int:product_id>/', views.product_detail, name='product_detail')
+
 ]
 
 if settings.DEBUG:

@@ -95,7 +95,8 @@ def logout_view(request):
     return redirect('home')
 
 def shop_view(request):
-    return render(request,'product1.html')
+    products = Product.objects.all().order_by('?')
+    return render(request, 'shop.html', {'products': products})
 
 def forgotpassword(request):
     if request.method == "POST":
@@ -236,21 +237,7 @@ def product_detail(request, product_id):
     return render(request, 'product_detail.html', {'product': product})
 
 
-##
-# # views.py
-# from django.shortcuts import render
-# from .models import Product
-# from recommend.dummy_model import recommend_for_user
 
-# def recommended_view(request):
-#     if not request.user.is_authenticated:
-#         return render(request, 'recommendations.html', {'products': []})
-
-#     user_id = request.user.id
-#     recommended_ids = recommend_for_user(user_id)
-#     recommended_products = Product.objects.filter(id__in=recommended_ids)
-
-    # return render(request, 'recommendations.html', {'products': recommended_products})
 
     #popularity based
 import joblib
@@ -372,3 +359,92 @@ from .models import Product
 def product_list(request):
     products = Product.objects.all()
     return render(request, 'products.html', {'products': products})
+
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+
+    # Optional: Check if already in cart
+    cart_item, created = CartItem.objects.get_or_create(user=request.user, product=product)
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
+    return redirect('view_cart') 
+
+from .models import CartItem
+@login_required
+def view_cart(request):
+    cart_items = CartItem.objects.filter(user=request.user)
+    total_price = sum(item.product.price * item.quantity for item in cart_items if item.product.price)
+    
+    return render(request, 'view_cart.html', {
+        'cart_items': cart_items,
+        'total_price': total_price
+    })
+@login_required
+def remove_from_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    item = CartItem.objects.filter(user=request.user, product=product).first()
+    if item:
+        item.delete()
+        messages.success(request, f"{product.name} removed from cart.")
+    return redirect('view_cart')
+
+@login_required
+def checkout(request):
+    # You can expand this with payment integration later
+    messages.success(request, "Proceeding to checkout... (stub)")
+    return redirect('view_cart')
+
+
+
+from django.shortcuts import render, get_object_or_404
+from .models import Profile, Post
+
+def profile_view(request):
+    profile = get_object_or_404(Profile, user=request.user)
+    posts = Post.objects.filter(user=request.user)
+    return render(request, 'profile.html', {'profile': profile, 'posts': posts})
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from .forms import ProfileForm
+from .models import Profile
+
+@login_required
+def edit_profile(request):
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')  # or your profile page url name
+    else:
+        form = ProfileForm(instance=profile)
+    return render(request, 'edit_profile.html', {'form': form})
+
+from .models import Product
+
+import joblib
+from django.shortcuts import render, get_object_or_404
+from .models import Product
+
+def product_detail(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+
+    # Load content-based recommendations
+    try:
+        recs_path = 'thrifty/data/content_recommendations.pkl'
+        recommendations = joblib.load(recs_path)
+
+        similar_ids = recommendations.get(str(product.product_id), [])  # Use product_id as string
+        similar_products = Product.objects.filter(product_id__in=similar_ids)
+    except Exception as e:
+        similar_products = []
+
+    return render(request, 'product_detail.html', {
+        'product': product,
+        'similar_products': similar_products,
+    })
+
+
