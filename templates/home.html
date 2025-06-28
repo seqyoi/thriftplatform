@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   
 </head>
+
 <body>
 {% if messages %}
   {% for message in messages %}
@@ -82,16 +83,21 @@
 
   </div>
 </section>
-
+ 
 <section class="search-bar">
-   <div class="search-container">
-  <input type="text" placeholder="Search for vintage jackets, bags, shoes...">
+  <div class="search-container">
+    <form method="get" action="{% url 'search' %}">
+      <input type="text" name="q" placeholder="Search for vintage jackets, bags, shoes..." required>
+      <button type="submit">Search</button>
+    </form>
   
-  <a href="{% url 'view_cart' %}" class="cart-button" title="View Cart">
-    <img src="{% static 'images/cart-icon.png' %}" alt="Cart" class="cart-icon">
-  </a>
-</div>
+    <a href="{% url 'view_cart' %}" class="cart-button" title="View Cart">
+      <img src="{% static 'images/cart-icon.png' %}" alt="Cart" class="cart-icon">
+    </a>
+  </div>
 </section>
+
+
 
 
   <section class="categories">
