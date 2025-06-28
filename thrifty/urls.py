@@ -25,11 +25,13 @@ urlpatterns = [
     path('cart/', views.view_cart, name='view_cart'),
     path('cart/remove/<int:product_id>/', views.remove_from_cart, name='remove_from_cart'),
     path('checkout/', views.checkout, name='checkout'),
-    path('product/<int:product_id>/', views.product_detail, name='product_detail')
+    path('product/<int:product_id>/', views.product_detail, name='product_detail'),
+    path('search/', views.search_products, name='search'),  # i have added search here inside the main list
 
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 
