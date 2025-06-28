@@ -448,3 +448,18 @@ def product_detail(request, product_id):
     })
 
 
+from django.shortcuts import render
+from .models import Product  # make sure Product model exists
+
+def search_products(request):
+    query = request.GET.get('q')  # get the search term from the form
+    products = []
+
+    if query:
+        products = Product.objects.filter(name__icontains=query)
+
+    context = {
+        'products': products,
+        'query': query
+    }
+    return render(request, 'search_results.html', context)

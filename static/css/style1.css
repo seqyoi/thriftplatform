@@ -177,14 +177,31 @@ body {
   gap: 10px;
 }
 
-.search-container input {
+.search-container input[type="text"] {
   width: 60vw;
   max-width: 600px;
   padding: 12px 18px;
   font-size: 16px;
   border: 2px solid #799567;
   border-radius: 10px;
+  outline: none;
 }
+.search-container button {
+  padding: 12px 20px;
+  background-color: #799567;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.search-container button:hover {
+  background-color: #5B744B;
+}
+
 
 .cart-button {
   display: flex;
@@ -803,4 +820,24 @@ body {
   border-radius: 8px;
   display: block;
   margin: 0 auto;
+}
+@media (max-width: 768px) {
+  .search-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-container input {
+    width: 100%;
+    max-width: none;
+  }
+
+  .search-container button {
+    width: 100%;
+  }
+
+  .cart-button {
+    margin-top: 10px;
+    justify-content: center;
+  }
 }
