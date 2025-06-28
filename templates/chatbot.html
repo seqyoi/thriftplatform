@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thriftify - Chatbot Assistant</title>
+  <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    .chat-page {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 20px;
+      background-color: #f0f2f5;
+      min-height: 100vh;
+    }
+    .chat-container {
+      background: #fff;
+      width: 400px;
+      height: 600px;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-header {
+      background-color: #fbd0c8;
+      padding: 20px;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .chat-messages {
+      flex-grow: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+    .user-message, .bot-message {
+      padding: 10px 15px;
+      border-radius: 15px;
+      margin-bottom: 10px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+    .user-message {
+      background-color: #dcf8c6;
+      align-self: flex-end;
+    }
+    .bot-message {
+      background-color: #f1f0f0;
+      align-self: flex-start;
+    }
+    form {
+      display: flex;
+      padding: 15px;
+      border-top: 1px solid #ddd;
+    }
+    input[type="text"] {
+      flex-grow: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 15px;
+      background: #f0f0f0;
+    }
+    input[type="submit"] {
+      padding: 10px 15px;
+      margin-left: 10px;
+      background-color: #dcf8c6;
+      color: rgb(27, 26, 26);
+      font-weight: bold;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Reuse Thriftify Navbar -->
+  <header class="navbar">
+    <div class="logo"><a href="{% url 'home' %}" style="text-decoration:none; color: inherit;">Thriftify</a></div>
+    <nav class="nav-links">
+      <a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+      <a href="{% url 'shop' %}" class="{% if request.path == '/shop/' %}active{% endif %}">Shop</a>
+      <a href="{% url 'category_list' %}" class="{% if request.path == '/categories/' %}active{% endif %}">Categories</a>
+      <a href="{% url 'chat-ui' %}" class="chat-link active">ChatBot</a>
+    </nav>
+    <div class="nav-buttons">
+      {% if user.is_authenticated %}
+        <span>Welcome, {{ user.username }}</span>
+        <div class="profile-dropdown-container">
+          <img src="{{ request.user.profile.profile_pic.url }}" alt="Profile" class="profile-pic" onclick="toggleDropdown()" />
+          <div id="profileDropdown" class="profile-dropdown">
+            <a href="{% url 'profile' %}">Your Profile</a>
+            <a href="#">Settings</a>
+            <a href="{% url 'logout' %}">Logout</a>
+          </div>
+        </div>
+      {% else %}
+        <a href="{% url 'login' %}" class="btn signin">Sign In</a>
+        <a href="{% url 'register' %}" class="btn signup">Sign Up</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <div class="chat-page">
+    <div class="chat-container">
+      <div class="chat-header">Thrifty Assistant</div>
+      <div class="chat-messages" id="chat-messages">
+        <div class="bot-message">Hi there! How can I help you today?</div>
+      </div>
+      <form id="chat-form">
+        <input type="text" id="user-input" placeholder="Type your message..." required autocomplete="off">
+        <input type="submit" value="Send">
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('chat-form');
+    const input = document.getElementById('user-input');
+    const chatMessages = document.getElementById('chat-messages');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const message = input.value.trim();
+      if (!message) return;
+
+      // Append user message
+      const userDiv = document.createElement('div');
+      userDiv.className = 'user-message';
+      userDiv.textContent = message;
+      chatMessages.appendChild(userDiv);
+
+      input.value = '';
+
+      try {
+        const response = await fetch('/chatbot/reply/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: JSON.stringify({ message })
+        });
+
+        const data = await response.json();
+        const botDiv = document.createElement('div');
+        botDiv.className = 'bot-message';
+        botDiv.textContent = data.reply;
+        chatMessages.appendChild(botDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      } catch (err) {
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'bot-message';
+        errorDiv.textContent = 'Error: Could not reach chatbot.';
+        chatMessages.appendChild(errorDiv);
+      }
+    });
+
+    // CSRF token helper
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+    // Scroll to bottom on load
+    window.onload = () => {
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+  </script>
+
+</body>
+</html>
