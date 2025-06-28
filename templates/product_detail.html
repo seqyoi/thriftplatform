@@ -106,14 +106,18 @@
   </style>
 </head>
 <body>
+  {% if messages %}
+  {% for message in messages %}
+    <div class="alert {{ message.tags }}">{{ message }}</div>
+  {% endfor %}
+{% endif %}
   <header class="navbar">
     <div class="logo">Thriftify</div>
     <nav class="nav-links">
-      <a href="{% url 'home' %}" >Home</a>
-      <a href="{% url 'shop' %}">Shop</a>
-      <a href="{% url 'category_list' %}">Categories</a>
+        <a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+      <a href="{% url 'shop' %}" class="{% if request.path == '/shop/' %}active{% endif %}">Shop</a>
+      <a href="{% url 'category_list' %}" class="{% if request.path == '/categories/' %}active{% endif %}">Categories</a>
       <a href="#">Contact</a>
-
     </nav>
     <div class="nav-buttons">
   {% if user.is_authenticated %}
@@ -146,9 +150,7 @@
       <div class="shop-name" id="detailShop"><em>Shop: {{ product.category }}</em></div>
       <div class="quantity">Quantity: 1</div>
       <div class="actions">
-        <a href="{% url 'add_to_cart' product.id %}">
-          <button class="buy-button">Buy Now</button>
-        </a>
+        <a href="{% url 'add_to_cart' product.id %}"><button class="buy-button">Add to Cart</button>
         <button class="chat-button">Live Chat</button>
       </div>
     </div>

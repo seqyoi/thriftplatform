@@ -360,7 +360,13 @@ def product_list(request):
     products = Product.objects.all()
     return render(request, 'products.html', {'products': products})
 
+from django.contrib.auth.decorators import login_required
+
 def add_to_cart(request, product_id):
+    if not request.user.is_authenticated:
+        messages.error(request, "You must be logged in to add items to your cart.")
+        return redirect(request.META.get('HTTP_REFERER', 'home'))  # Change 'home' to your login or landing page
+
     product = get_object_or_404(Product, id=product_id)
 
     # Optional: Check if already in cart
@@ -369,7 +375,7 @@ def add_to_cart(request, product_id):
         cart_item.quantity += 1
         cart_item.save()
 
-    return redirect('view_cart') 
+    return redirect('view_cart')  # Change to your cart view name if needed
 
 from .models import CartItem
 @login_required
@@ -448,3 +454,36 @@ def product_detail(request, product_id):
     })
 
 
+#chatbot
+import json
+import requests
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def chatbot_reply(request):
+    if request.method == 'POST':
+        try:
+            # Parse JSON body
+            body = json.loads(request.body)
+            user_message = body.get('message')
+            if not user_message:
+                return JsonResponse({'reply': 'No message provided.'})
+
+            # Send to Flask chatbot API
+            response = requests.post(
+                'http://localhost:5000/chat',
+                json={'message': user_message}
+            )
+            data = response.json()
+            return JsonResponse({'reply': data.get('reply')})
+        except Exception as e:
+            return JsonResponse({'reply': f'Error: {str(e)}'}, status=500)
+    return JsonResponse({'reply': 'Invalid request'}, status=400)
+
+
+
+from django.shortcuts import render
+
+def chatbot_ui(request):
+    return render(request, 'chatbot.html')

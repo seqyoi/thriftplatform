@@ -10,20 +10,20 @@
   
 </head>
 <body>
-  {% if messages %}
-  <ul class="messages">
-    {% for message in messages %}
-      <li class="{{ message.tags }}">{{ message }}</li>
-    {% endfor %}
-  </ul>
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert {{ message.tags }}">{{ message }}</div>
+  {% endfor %}
 {% endif %}
+
   <header class="navbar">
     <div class="logo"><a href="{% url 'home' %}" style="text-decoration:none; color: inherit;">Thriftify</a></div>
     <nav class="nav-links">
-      <a href="{% url 'home' %}" >Home</a>
-      <a href="{% url 'shop' %}">Shop</a>
-      <a href="{% url 'category_list' %}">Categories</a>
-      <a href="#">Contact</a>
+      <a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a>
+      <a href="{% url 'shop' %}" class="{% if request.path == '/shop/' %}active{% endif %}">Shop</a>
+      <a href="{% url 'category_list' %}" class="{% if request.path == '/categories/' %}active{% endif %}">Categories</a>
+      <a href="{% url 'chat-ui' %}" class="chat-link">ChatBot</a>
+
 
     </nav>
     <div class="nav-buttons">
@@ -122,10 +122,84 @@
 {% else %}
 <p>No popular products found.</p>
 {% endif %}
+<!-- Floating Button -->
+<button class="chat-toggle" onclick="toggleChat()">💬</button>
 
-  
-</section>
+<!-- Chat Widget -->
+<div class="chat-widget" id="chatWidget">
+  <div class="chat-header">Thrifty Assistant</div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-input">
+    <input type="text" id="chatInput" placeholder="Ask me anything..." />
+    <button onclick="sendChat()">Send</button>
+  </div>
+</div>
 
+  <script>
+    const chatWidget = document.getElementById('chatWidget');
+const chatBody = document.getElementById('chatBody');
+const chatInput = document.getElementById('chatInput');
+
+function toggleChat() {
+  chatWidget.style.display = chatWidget.style.display === 'flex' ? 'none' : 'flex';
+  if (chatWidget.style.display === 'flex') {
+    chatInput.focus();
+  }
+}
+
+function appendMessage(text, sender) {
+  const msg = document.createElement('div');
+  msg.classList.add('message', sender);
+  msg.textContent = text;
+  chatBody.appendChild(msg);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function sendChat() {
+  const message = chatInput.value.trim();
+  if (!message) return;
+
+  appendMessage(message, 'user');
+  chatInput.value = '';
+
+  fetch('/chatbot/reply/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken')  // Add CSRF token if Django POST requires it
+    },
+    body: JSON.stringify({ message })
+  })
+  .then(res => res.json())
+  .then(data => {
+    appendMessage(data.reply || 'No response from bot.', 'bot');
+  })
+  .catch(() => {
+    appendMessage('Chatbot server error.', 'bot');
+  });
+}
+
+chatInput.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') sendChat();
+});
+
+// Helper function to get CSRF token cookie (needed for Django POST)
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i=0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+  </script>
 
  <footer class="site-footer">
   <div class="footer-faqs">
