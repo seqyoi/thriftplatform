@@ -150,19 +150,39 @@
 
       <div class="action-buttons">
         <a href="{% url 'edit_profile' %}">Edit Profile</a>
-        <a href="#">Add Post</a>
+        <a href="{% url 'upload_product' %}">Add Post</a>
       </div>
     </div>
 
-    {% if posts %}
-    <div class="post-grid">
-      {% for post in posts %}
-        <img src="{{ post.image.url }}" alt="Post">
-      {% endfor %}
-    </div>
-    {% else %}
-    <div class="no-posts">You haven’t uploaded any posts yet.</div>
-    {% endif %}
+   <h3>My Uploaded Products</h3>
+
+{% if products %}
+  <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+    {% for product in products %}
+      <div style="border: 1px solid #ccc; padding: 10px; border-radius: 10px; width: 200px;">
+        <div class="shop-product-card"> 
+          <img src="{{ product.display_image }}" style="width: 100%; height: 150px; object-fit: cover;">
+          
+          <div class="product-name">{{ product.name }}</div>
+          <div class="product-price">Rs {{ product.price }}</div>
+          <div class="product-category">{{ product.category }}</div>
+
+          <a href="{% url 'product_detail' product.id %}">
+            <button class="buy-button">View</button>
+          </a>
+
+          {% if product.user == request.user %}
+           <a href="{% url 'edit_product' request.user.username product.id %}">
+              <button class="buy-button">Edit</button>
+            </a>
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
   </div>
+{% else %}
+  <p>You haven’t uploaded any products yet.</p>
+{% endif %}
+
 </body>
 </html>

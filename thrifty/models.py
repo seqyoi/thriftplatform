@@ -28,23 +28,37 @@ class CategoryImage(models.Model):
         return f"Image for {self.category.name}"
 
   #recommendation system
+from django.contrib.auth.models import User
+from django.db import models
 from django.utils import timezone
+from django.templatetags.static import static
+
+
 class Product(models.Model):
-    product_id = models.CharField(max_length=100, unique=True)  # Ensure string type
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)  # User who uploaded (optional)
+    product_id = models.CharField(max_length=100, unique=True)
     name = models.CharField(max_length=255)
     category = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
-    image_url = models.URLField(max_length=500, blank=True)  # Changed to URLField
+    image_url = models.URLField(max_length=500, blank=True)  # For CSV-imported products
+    image_file = models.ImageField(upload_to='product_images/', blank=True, null=True)  # For user-uploaded images
     rating = models.FloatField(null=True, blank=True)
-    created_at = models.DateTimeField(default=timezone.now) 
+    created_at = models.DateTimeField(default=timezone.now)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
- # Added for fallback ordering
-    
+
     class Meta:
-        ordering = ['-created_at']  # Default ordering
-        
+        ordering = ['-created_at']
+
     def __str__(self):
         return f"{self.name} ({self.product_id})"
+
+    def display_image(self):
+        if self.image_file and hasattr(self.image_file, 'url'):
+            return self.image_file.url
+        elif self.image_url:
+            return self.image_url
+        else:
+            return static('images/default_product.png')  # optional fallback static image
 
 # models.py
 from django.contrib.auth.models import User

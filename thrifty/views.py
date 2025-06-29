@@ -405,12 +405,20 @@ def checkout(request):
 
 
 from django.shortcuts import render, get_object_or_404
-from .models import Profile, Post
+from .models import Profile, Product
 
-def profile_view(request):
-    profile = get_object_or_404(Profile, user=request.user)
-    posts = Post.objects.filter(user=request.user)
-    return render(request, 'profile.html', {'profile': profile, 'posts': posts})
+@login_required
+def profile_view(request, username):
+    user_profile = get_object_or_404(User, username=username)
+    profile = get_object_or_404(Profile, user=user_profile)
+    products = Product.objects.filter(user=user_profile)
+
+    return render(request, 'profile.html', {
+        'profile': profile,
+        'products': products,
+        'user_profile': user_profile
+    })
+
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -502,3 +510,41 @@ def search_products(request):
         'query': query
     }
     return render(request, 'search_results.html', context)
+
+#uploading
+from .forms import ProductForm
+from django.contrib.auth.decorators import login_required
+@login_required
+def upload_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)  # Important: request.FILES for images
+        if form.is_valid():
+            form.save(user=request.user)
+            return redirect('product_list')  # Or wherever you want after upload
+    else:
+        form = ProductForm()
+    return render(request, 'upload_product.html', {'form': form})
+
+
+#edit_posts
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Product
+from .forms import ProductForm
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def edit_product(request, username, product_id):
+    if username != request.user.username:
+        return redirect('user_profile', username=request.user.username)  # prevent others from editing
+
+    product = get_object_or_404(Product, id=product_id, user=request.user)
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save(user=request.user)
+            return redirect('user_profile', username=request.user.username)
+    else:
+        form = ProductForm(instance=product)
+
+    return render(request, 'edit_product.html', {'form': form, 'product': product})
