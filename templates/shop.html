@@ -47,7 +47,7 @@
   <section class="shop-products">
     {% for product in products %}
       <div class="shop-product-card"> 
-        <a href="{% url 'product_detail' product.id %}" style="text-decoration:none;"><img class="shop-product-image" src="{% get_media_prefix %}{{ product.image_url }}" alt="{{ product.name }}">
+        <a href="{% url 'product_detail' product.id %}" style="text-decoration:none;"><img class="shop-product-image" src="{{ product.display_image }}" alt="{{ product.name }}">
         <div class="product-name">{{ product.name }}</div>
         <div class="product-price">Rs {{ product.price }}</div></a>
         <div class="product-category">{{ product.category }}</div>
