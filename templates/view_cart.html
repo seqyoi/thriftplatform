@@ -1,53 +1,12 @@
+{% extends 'home.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Your Cart - Thriftify</title>
-  <link rel="stylesheet" href="{% static 'css/style1.css' %}">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-</head>
-<body>
-{% if messages %}
-  {% for message in messages %}
-    <div class="alert {{ message.tags }}">{{ message }}</div>
-  {% endfor %}
-{% endif %}
-  <header class="navbar">
-    <div class="logo"><a href="{% url 'home' %}" style="text-decoration:none; color: inherit;">Thriftify</a></div>
-    <nav class="nav-links">
-        <a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a>
-      <a href="{% url 'shop' %}" class="{% if request.path == '/shop/' %}active{% endif %}">Shop</a>
-      <a href="{% url 'category_list' %}" class="{% if request.path == '/categories/' %}active{% endif %}">Categories</a>
-      <a href="#">Contact</a>
-
-    </nav>
-    <div class="nav-buttons">
-  {% if user.is_authenticated %}
-    <span>Welcome, {{ user.username }}</span>
-       <!-- Profile link/icon -->
-     <div class="profile-dropdown-container">
-  <img src="{{ request.user.profile.profile_pic.url }}" alt="Profile" class="profile-pic" onclick="toggleDropdown()" />
-
-  <div id="profileDropdown" class="profile-dropdown">
-    <a href="{% url 'profile' %}">Your Profile</a>
-    <a href="#">Settings</a>
-    <a href="{% url 'logout' %}">Logout</a>
-    
-  </div>
-</div>
-  {% else %}
-    <a href="{% url 'login' %}" class="btn signin">Sign In</a>
-    <a href="{% url 'register' %}" class="btn signup">Sign Up</a>
-  {% endif %}
-</div>
-</header>
+{% block content %}
 
 {% if cart_items %}
   {% for item in cart_items %}
     <div class="cart-container">
-      <img src="{% get_media_prefix %}{{ item.product.image_url }}" alt="{{ item.product.name }}" class="cart-image">
+      <img src="{{ item.product.get_image_url }}" alt="{{ item.product.name }}" class="cart-image">
       <div class="cart-info">
         <h2>{{ item.product.name }}</h2>
         <p>{{ item.product.description }}</p>
@@ -75,5 +34,4 @@
   <p style="text-align: center; margin-top: 50px;">Your cart is empty.</p>
 {% endif %}
 
-</body>
-</html>
+{% endblock %}

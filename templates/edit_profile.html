@@ -113,7 +113,7 @@
       <button type="submit">Save Changes</button>
     </form>
 
-    <a href="{% url 'profile' %}" class="back-link">← Back to Profile</a>
+    <a href="{% url 'user_profile' request.user.username %}" class="back-link">← Back to Profile</a>
   </div>
 </body>
 </html>
