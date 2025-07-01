@@ -1,148 +1,11 @@
+{% extends 'home.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>{{ product.name }} - Thriftify</title>
-  <link rel="stylesheet" href="{% static 'css/style1.css' %}">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
 
- .product-detail-container {
-      max-width: 1100px;
-      margin: 60px auto;
-      display: flex;
-      background: white;
-      border-radius: 16px;
-      padding: 40px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-    }
-
-    .product-image {
-      width: 40%;
-      height:40%;
-      border-radius: 12px;
-      object-fit: cover;
-    }
-
-    .product-info {
-      width: 50%;
-      padding-left: 40px;
-    }
-
-    .product-title {
-      font-size: 26px;
-      font-weight: 700;
-      margin-bottom: 10px;
-      color: #2e4936;
-    }
-
-    .product-description {
-      margin: 20px 0;
-      line-height: 1.6;
-      color: #444;
-    }
-
-    .product-price {
-      font-size: 22px;
-      font-weight: bold;
-      color: #5e8c4d;
-    }
-
-    .shop-name {
-      font-style: italic;
-      margin-top: 10px;
-      color: #666;
-    }
-
-    .quantity {
-      margin-top: 20px;
-      font-weight: 600;
-    }
-
-    .actions {
-      margin-top: 30px;
-      display: flex;
-      gap: 20px;
-    }
-
-    .buy-button {
-      background-color: #799567;
-      color: white;
-      padding: 12px 22px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .chat-button {
-      background-color: #e2e8ec;
-      padding: 12px 22px;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      color: #333;
-    }
-
-    .back-button {
-      display: block;
-      margin: 40px auto 0;
-      background-color: #e44f4f;
-      color: white;
-      padding: 10px 30px;
-      border-radius: 10px;
-      text-align: center;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-    }
-
-    .profile-pic {
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-    }
-  </style>
-</head>
-<body>
-  {% if messages %}
-  {% for message in messages %}
-    <div class="alert {{ message.tags }}">{{ message }}</div>
-  {% endfor %}
-{% endif %}
-  <header class="navbar">
-    <div class="logo">Thriftify</div>
-    <nav class="nav-links">
-        <a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a>
-      <a href="{% url 'shop' %}" class="{% if request.path == '/shop/' %}active{% endif %}">Shop</a>
-      <a href="{% url 'category_list' %}" class="{% if request.path == '/categories/' %}active{% endif %}">Categories</a>
-      <a href="#">Contact</a>
-    </nav>
-    <div class="nav-buttons">
-  {% if user.is_authenticated %}
-    <span>Welcome, {{ user.username }}</span>
-       <!-- Profile link/icon -->
-     <div class="profile-dropdown-container">
-  <img src="{{ request.user.profile.profile_pic.url }}" alt="Profile" class="profile-pic" onclick="toggleDropdown()" />
-
-  <div id="profileDropdown" class="profile-dropdown">
-    <a href="{% url 'profile' %}">Your Profile</a>
-    <a href="#">Settings</a>
-    <a href="{% url 'logout' %}">Logout</a>
-    
-  </div>
-</div>
-  {% else %}
-    <a href="{% url 'login' %}" class="btn signin">Sign In</a>
-    <a href="{% url 'register' %}" class="btn signup">Sign Up</a>
-  {% endif %}
-</div>
-</header>
+{% block content %}
 
   
   <div id="productDetail" class="product-detail-container">
-    <img id="detailImage" class="product-image" src="{{ product.display_image }}" alt="{{ product.name }}" />
+    <img id="detailImage" class="product-image" src="{{ product.get_image_url }}" alt="{{ product.name }}" />
     <div class="product-info">
       <div class="product-title" id="detailTitle">{{ product.name }}</div>
       <div class="product-description" id="detailDesc">{{ product.description }}</div>
@@ -162,7 +25,7 @@
     {% for sim in similar_products %}
       <div class="product-card">
         <a href="{% url 'product_detail' sim.id %}" style="text-decoration:none;">
-          <img src="{% get_media_prefix %}{{ sim.image_url }}" alt="{{ sim.name }}">
+          <img src="{{ sim.get_image_url }}" alt="{{ sim.name }}">
           <div class="product-name">{{ sim.name }}</div>
           <div class="product-category">{{ sim.category }}</div>
           <div class="product-price">Rs {{ sim.price }}</div>
@@ -180,5 +43,4 @@
 </a>
 </div>
 
-</body>
-</html>
+{%endblock%}

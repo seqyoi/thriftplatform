@@ -1,53 +1,17 @@
+{% extends 'home.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Thrifty - Shop </title>
-  <link rel="stylesheet" href="{% static 'css/style1.css' %}">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-</head> 
-<body>
-{% if messages %}
-  {% for message in messages %}
-    <div class="alert {{ message.tags }}">{{ message }}</div>
-  {% endfor %}
-{% endif %}
 
-  <header class="navbar">
-    <div class="logo"><a href="{% url 'home' %}" style="text-decoration:none; color: inherit;">Thriftify</a></div>
-    <nav class="nav-links">
-        <a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a>
-      <a href="{% url 'shop' %}" class="{% if request.path == '/shop/' %}active{% endif %}">Shop</a>
-      <a href="{% url 'category_list' %}" class="{% if request.path == '/categories/' %}active{% endif %}">Categories</a>
-      <a href="#">Contact</a>
-    </nav>
-     <div class="nav-buttons">
-  {% if user.is_authenticated %}
-    <span>Welcome, {{ user.username }}</span>
-       <!-- Profile link/icon -->
-     <div class="profile-dropdown-container">
-  <img src="{{ request.user.profile.profile_pic.url }}" alt="Profile" class="profile-pic" onclick="toggleDropdown()" />
-
-     <div id="profileDropdown" class="profile-dropdown">
-    <a href="{% url 'profile' %}">Your Profile</a>
-    <a href="#">Settings</a>
-    <a href="{% url 'logout' %}">Logout</a>
-    
-     </div>
-    </div>
-  {% else %}
-    <a href="{% url 'login' %}" class="btn signin">Sign In</a>
-    <a href="{% url 'register' %}" class="btn signup">Sign Up</a>
-  {% endif %}
-</div>
+{% block content %}
 
   </header>
 <h2 class="section-title">All Products</h2>
   <section class="shop-products">
     {% for product in products %}
       <div class="shop-product-card"> 
-        <a href="{% url 'product_detail' product.id %}" style="text-decoration:none;"><img class="shop-product-image" src="{{ product.display_image }}" alt="{{ product.name }}">
+        <a href="{% url 'product_detail' product.id %}" style="text-decoration:none;">
+       <img class="shop-product-image" src="{{ product.get_image_url }}" alt="{{ product.name }}">
+
+
         <div class="product-name">{{ product.name }}</div>
         <div class="product-price">Rs {{ product.price }}</div></a>
         <div class="product-category">{{ product.category }}</div>
@@ -74,5 +38,4 @@
   }
 </script>
 
-</body>
-</html>
+{% endblock %}

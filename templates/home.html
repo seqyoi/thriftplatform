@@ -23,7 +23,6 @@
     <nav class="nav-links">
       <a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a>
       <a href="{% url 'shop' %}" class="{% if request.path == '/shop/' %}active{% endif %}">Shop</a>
-      <a href="{% url 'category_list' %}" class="{% if request.path == '/categories/' %}active{% endif %}">Categories</a>
       <a href="{% url 'chat-ui' %}" class="chat-link">ChatBot</a>
 
 
@@ -36,7 +35,7 @@
   <img src="{{ request.user.profile.profile_pic.url }}" alt="Profile" class="profile-pic" onclick="toggleDropdown()" />
 
   <div id="profileDropdown" class="profile-dropdown">
-    <a href="{% url 'profile' %}">Your Profile</a>
+    <a href="{% url 'user_profile' request.user.username %}">Profile</a>
     <a href="#">Settings</a>
     <a href="{% url 'logout' %}">Logout</a>
     
@@ -110,7 +109,7 @@
 <section class="products"> 
     {% for product in popular_products %}
     <div class="product-card">
-        <a href="{% url 'product_detail' product.id %}" style="text-decoration:none;"><img src="{% get_media_prefix %}{{ product.image_url }}" alt="{{ product.name }}">
+        <a href="{% url 'product_detail' product.id %}" style="text-decoration:none;"><img src="{{ product.get_image_url }}" alt="{{ product.name }}">
         <div class="product-name">{{ product.name }}</div></a>
         <div class="product-price">Rs {{ product.price }}</div>
         <div class="product-category">{{ product.category }}</div>

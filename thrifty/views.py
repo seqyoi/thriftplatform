@@ -426,16 +426,22 @@ from .forms import ProfileForm
 from .models import Profile
 
 @login_required
-def edit_profile(request):
-    profile = request.user.profile
+def edit_profile(request, username):
+    if username != request.user.username:
+        return redirect('user_profile', username=request.user.username)
+
+    profile = get_object_or_404(Profile, user=request.user)
+
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
-            return redirect('profile')  # or your profile page url name
+            return redirect('user_profile', username=request.user.username)
     else:
         form = ProfileForm(instance=profile)
+
     return render(request, 'edit_profile.html', {'form': form})
+
 
 from .models import Product
 
@@ -520,7 +526,7 @@ def upload_product(request):
         form = ProductForm(request.POST, request.FILES)  # Important: request.FILES for images
         if form.is_valid():
             form.save(user=request.user)
-            return redirect('product_list')  # Or wherever you want after upload
+            return redirect('shop')  # Or wherever you want after upload
     else:
         form = ProductForm()
     return render(request, 'upload_product.html', {'form': form})
@@ -531,20 +537,42 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product
 from .forms import ProductForm
 from django.contrib.auth.decorators import login_required
-
-@login_required
 def edit_product(request, username, product_id):
-    if username != request.user.username:
-        return redirect('user_profile', username=request.user.username)  # prevent others from editing
+    product = get_object_or_404(Product, id=product_id)
 
-    product = get_object_or_404(Product, id=product_id, user=request.user)
+    if product.user.username != username or product.user != request.user:
+        return HttpResponseForbidden("You are not allowed to edit this product.")
 
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
-            form.save(user=request.user)
-            return redirect('user_profile', username=request.user.username)
+            form.save()
+            return redirect('profile', product.id)
     else:
         form = ProductForm(instance=product)
 
     return render(request, 'edit_product.html', {'form': form, 'product': product})
+
+
+
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
+
+@login_required
+def delete_product(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+
+    # ✅ Only allow the user who uploaded it
+    if product.user != request.user:
+        return HttpResponseForbidden("You are not allowed to delete this product.")
+
+    if request.method == "POST":
+        product.delete()
+        return redirect('shop')  # or any success page
+
+    return redirect('product_detail', product.id)
+
+@login_required
+def profile(request):
+    products = Product.objects.filter(user=request.user)
+    return render(request, 'profile.html', {'products': products})

@@ -40,7 +40,7 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     category = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
-    image_url = models.URLField(max_length=500, blank=True)  # For CSV-imported products
+    image_url = models.URLField(max_length=500, blank=True)  # For CSV-imported products #i later converted into image_file
     image_file = models.ImageField(upload_to='product_images/', blank=True, null=True)  # For user-uploaded images
     rating = models.FloatField(null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
@@ -52,13 +52,11 @@ class Product(models.Model):
     def __str__(self):
         return f"{self.name} ({self.product_id})"
 
-    def display_image(self):
+    def get_image_url(self):
         if self.image_file and hasattr(self.image_file, 'url'):
             return self.image_file.url
-        elif self.image_url:
-            return self.image_url
         else:
-            return static('images/default_product.png')  # optional fallback static image
+            return static('images/default_product.jpg')
 
 # models.py
 from django.contrib.auth.models import User

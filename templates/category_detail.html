@@ -59,7 +59,7 @@
     <div style="display: flex; flex-wrap: wrap; gap: 20px;">
       {% for img in images %}
         <div style="width: 220px;">
-          <img src="{{ img.image.url }}" alt="{{ category.name }}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px;">
+          <img src="{{ img.get.image.url }}" alt="{{ category.name }}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 10px;">
         </div>
       {% endfor %}
     </div>
