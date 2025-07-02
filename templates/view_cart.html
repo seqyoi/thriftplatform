@@ -2,32 +2,175 @@
 {% load static %}
 
 {% block content %}
+<style>
+.cart-container {
+  max-width: 1000px;
+  height: 300px;
+  margin: 40px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  align-items: flex-start;
+}
+
+.cart-image {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #eee;
+}
+
+.cart-info {
+  flex: 1;
+  min-width: 250px;
+}
+
+.cart-info h2 {
+  margin-bottom: 10px;
+  color: #3b543f;
+  font-size: 22px;
+}
+
+.cart-info p {
+  margin: 6px 0;
+  color: #444;
+  line-height: 1.4;
+}
+
+.cart-info .price {
+  font-size: 20px;
+  color: #55734a;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.cart-info .shop {
+  font-style: italic;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+.cart-info .quantity {
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.cart-info .btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cart-info .btn-group button {
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.buy-btn {
+  background-color: #5a774e;
+  color: white;
+}
+
+.chat-btn {
+  background-color: #dce3e9;
+  color: #333;
+}
+
+.remove-btn {
+  margin-top: 15px;
+  color: #a33;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.back-button {
+  display: block;
+  margin: 30px auto;
+  background-color: #d33;
+  color: white;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #b22;
+}
+
+.cart-total {
+  text-align: center;
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 25px;
+  color: #3a5131;
+}
+
+@media (max-width: 768px) {
+  .cart-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .cart-image {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .cart-info {
+    width: 100%;
+  }
+
+  .cart-info .btn-group {
+    justify-content: center;
+  }
+}
+
+</style>
 
 {% if cart_items %}
   {% for item in cart_items %}
-    <div class="cart-container">
-      <img src="{{ item.product.get_image_url }}" alt="{{ item.product.name }}" class="cart-image">
-      <div class="cart-info">
-        <h2>{{ item.product.name }}</h2>
-        <p>{{ item.product.description }}</p>
-        <div class="price">Rs {{ item.product.price }}</div>
-        <div class="shop">Shop: {{ item.product.category }}</div>
-        <div class="quantity">Quantity: {{ item.quantity }}</div>
-        <div class="btn-group">
-          <button class="buy-btn">Buy Now</button>
-          <button class="chat-btn">Live Chat</button>
-        </div>
+  <div class="cart-container">
+    <img src="{{ item.product.get_image_url }}" alt="{{ item.product.name }}" class="cart-image">
+    
+    <div class="cart-info">
+      <h2>{{ item.product.name }}</h2>
+      <p>{{ item.product.description }}</p>
+      <div class="price">Rs {{ item.product.price }}</div>
+      <div class="shop">Shop: {{ item.product.category }}</div>
+      <div class="quantity">Quantity: {{ item.quantity }}</div>
 
-        <form method="post" action="{% url 'remove_from_cart' item.product.id %}">
-          {% csrf_token %}
-          <button type="submit" class="remove-btn">Remove from Cart</button>
-        </form>
+      <div class="btn-group">
+        <button class="buy-btn">Buy Now</button>
+        <button class="chat-btn">Live Chat</button>
       </div>
+
+      <form method="post" action="{% url 'remove_from_cart' item.product.id %}" class="remove-form">
+        {% csrf_token %}
+        <button type="submit" class="remove-btn">Remove from Cart</button>
+      </form>
     </div>
-  {% endfor %}
+  </div>
+{% endfor %}
 
   <div class="cart-total">Total: Rs {{ total_price }}</div>
-  <a href="{% url 'checkout' %}">
+  <a href="{% url 'checkout' %}" style="text-decoration:none; color: inherit;">
     <button class="back-button">Proceed to Checkout</button>
   </a>
 {% else %}
