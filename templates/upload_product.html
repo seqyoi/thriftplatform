@@ -16,13 +16,18 @@
   .upload-container h2 {
     text-align: center;
     margin-bottom: 25px;
-    color: #333;
+    color: #222;
+    font-size: 26px;
+  }
+
+  .upload-form p {
+    margin-bottom: 20px;
   }
 
   .upload-form label {
     font-weight: 600;
-    margin-top: 15px;
     display: block;
+    margin-bottom: 6px;
     color: #333;
   }
 
@@ -32,18 +37,26 @@
   .upload-form textarea,
   .upload-form select {
     width: 100%;
-    padding: 10px 12px;
-    margin-top: 8px;
+    padding: 12px;
+    margin-top: 4px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    box-sizing: border-box;
     font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+
+  .upload-form input:focus,
+  .upload-form textarea:focus,
+  .upload-form select:focus {
+    border-color: #4CAF50;
+    outline: none;
   }
 
   .upload-form button {
     width: 100%;
-    margin-top: 25px;
-    padding: 12px;
+    margin-top: 20px;
+    padding: 14px;
     background-color: #4CAF50;
     color: white;
     font-size: 16px;
@@ -51,28 +64,49 @@
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s;
   }
 
   .upload-form button:hover {
     background-color: #45a049;
+    transform: scale(1.01);
   }
 
   .upload-note {
     font-size: 13px;
-    color: #888;
-    margin-top: 5px;
+    color: #777;
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
+
+  .errorlist {
+    color: red;
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 640px) {
+    .upload-container {
+      padding: 20px;
+    }
+
+    .upload-form input,
+    .upload-form textarea,
+    .upload-form select {
+      font-size: 14px;
+    }
+
+    .upload-form button {
+      font-size: 15px;
+    }
   }
 </style>
 
 <div class="upload-container">
   <h2>Sell a Product</h2>
+<form method="POST" enctype="multipart/form-data" class="upload-form">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Submit</button>
+</form>
 
-  <form method="POST" enctype="multipart/form-data" class="upload-form">
-    {% csrf_token %}
-    {{ form.as_p }}
-
-    <button type="submit">Upload Product</button>
-  </form>
-</div>
 {% endblock %}

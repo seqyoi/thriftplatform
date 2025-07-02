@@ -410,14 +410,21 @@ from .models import Profile, Product
 @login_required
 def profile_view(request, username):
     user_profile = get_object_or_404(User, username=username)
-    profile = get_object_or_404(Profile, user=user_profile)
+    profile = Profile.objects.filter(user=user_profile).first()
     products = Product.objects.filter(user=user_profile)
 
-    return render(request, 'profile.html', {
-        'profile': profile,
-        'products': products,
-        'user_profile': user_profile
-    })
+    # Check if viewing own profile or someone else's
+    is_owner = request.user.is_authenticated and request.user == user_profile
+
+    return render(request, 
+                  'profile.html' if is_owner else 'public_profile.html', 
+                  {
+                      'user_profile': user_profile,
+                      'profile': profile,        # in own profile
+                      'seller_profile': profile, # in public profile
+                      'products': products
+                  })
+
 
 
 from django.contrib.auth.decorators import login_required
@@ -448,23 +455,53 @@ from .models import Product
 import joblib
 from django.shortcuts import render, get_object_or_404
 from .models import Product
+from .models import Profile
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)
+    similar_products = []
+    profile = None  # ✅ Initialize early to avoid UnboundLocalError
 
-    # Load content-based recommendations
     try:
+        # Load precomputed similarities
         recs_path = 'thrifty/data/content_recommendations.pkl'
         recommendations = joblib.load(recs_path)
 
-        similar_ids = recommendations.get(str(product.product_id), [])  # Use product_id as string
+        similar_ids = recommendations.get(str(product.product_id), [])
         similar_products = Product.objects.filter(product_id__in=similar_ids)
-    except Exception as e:
-        similar_products = []
+
+        if not similar_products:
+            raise KeyError("No match found")
+
+    except Exception:
+        # Live fallback if precomputed fails
+        all_products = Product.objects.exclude(id=product.id)
+        corpus = [
+            f"{product.name} {product.category} {product.description or ''}"
+        ] + [
+            f"{p.name} {p.category} {p.description or ''}" for p in all_products
+        ]
+
+        if len(corpus) > 1:
+            vectorizer = TfidfVectorizer(stop_words='english')
+            vectors = vectorizer.fit_transform(corpus)
+            sims = cosine_similarity(vectors[0:1], vectors[1:]).flatten()
+
+            top_indices = sims.argsort()[-4:][::-1]
+            similar_products = [
+                all_products[int(i)] for i in top_indices if sims[int(i)] > 0.1
+            ]
+
+    # ✅ Make sure this runs regardless of exception
+    if product.user:
+        profile = Profile.objects.filter(user=product.user).first()
 
     return render(request, 'product_detail.html', {
         'product': product,
         'similar_products': similar_products,
+        'seller_profile': profile,
     })
 
 
@@ -523,10 +560,10 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def upload_product(request):
     if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES)  # Important: request.FILES for images
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
             form.save(user=request.user)
-            return redirect('shop')  # Or wherever you want after upload
+            return redirect('user_profile',username=request.user.username)
     else:
         form = ProductForm()
     return render(request, 'upload_product.html', {'form': form})
@@ -547,7 +584,7 @@ def edit_product(request, username, product_id):
         form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
-            return redirect('profile', product.id)
+            return redirect('user_profile', product.id)
     else:
         form = ProductForm(instance=product)
 
@@ -568,7 +605,7 @@ def delete_product(request, product_id):
 
     if request.method == "POST":
         product.delete()
-        return redirect('shop')  # or any success page
+        return redirect('user_profile', username=request.user.username)  # or any success page
 
     return redirect('product_detail', product.id)
 
@@ -576,3 +613,5 @@ def delete_product(request, product_id):
 def profile(request):
     products = Product.objects.filter(user=request.user)
     return render(request, 'profile.html', {'products': products})
+
+
