@@ -130,9 +130,12 @@
 <!-- Chat Widget -->
 <div class="chat-widget" id="chatWidget">
   <div class="chat-header">Thrifty Assistant</div>
+  <div class="chat-messages" id="chat-messages">
+        <div class="bot-message">Hi there! How can I help you today?</div>
+      </div>
   <div class="chat-body" id="chatBody"></div>
   <div class="chat-input">
-    <input type="text" id="chatInput" placeholder="Ask me anything..." />
+    <input type="text" id="user-input" placeholder="Ask me anything..."  required autocomplete="off"/>
     <button onclick="sendChat()">Send</button>
   </div>
 </div>

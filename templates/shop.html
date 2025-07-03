@@ -2,8 +2,20 @@
 {% load static %}
 
 {% block content %}
+<body>
+<section class="search-bar">
+  <div class="search-container">
+    <form method="get" action="{% url 'search' %}">
+      <input type="text" name="q" placeholder="Search for vintage jackets, bags, shoes..." required>
+      <button type="submit">Search</button>
+    </form>
+  
+    <a href="{% url 'view_cart' %}" class="cart-button" title="View Cart">
+      <img src="{% static 'images/cart-icon.png' %}" alt="Cart" class="cart-icon">
+    </a>
+  </div>
+</section>
 
-  </header>
 <h2 class="section-title">All Products</h2>
   <section class="shop-products">
     {% for product in products %}
@@ -21,6 +33,7 @@
       <p>No products found.</p>
     {% endfor %}
   </section>
+</body>
   <script>
   function toggleDropdown() {
     const dropdown = document.getElementById("profileDropdown");
