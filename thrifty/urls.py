@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from thrifty import views
@@ -34,7 +34,8 @@ urlpatterns = [
     path('upload/', views.upload_product, name='upload_product'),
    path('profile/<str:username>/edit/<int:product_id>/', views.edit_product, name='edit_product'),
    path('product/<int:product_id>/delete/', views.delete_product, name='delete_product'),
-   
+   path('user/<str:username>/', views.profile, name='profile'),
+    path('reviews/add/<str:model_name>/<int:object_id>/', views.add_review, name='add_review'),
 
 
 ]

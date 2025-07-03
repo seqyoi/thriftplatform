@@ -14,6 +14,7 @@ from django.views import View
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import logout
+from django.contrib.contenttypes.models import ContentType
 
 
 def register(request):
@@ -448,6 +449,11 @@ from .models import Product
 import joblib
 from django.shortcuts import render, get_object_or_404
 from .models import Product
+from django.contrib.contenttypes.models import ContentType
+from thrifty.models import Product, Review 
+from django.shortcuts import redirect
+from .forms import ReviewForm
+from django.contrib.auth.decorators import login_required
 
 def product_detail(request, product_id):
     product = get_object_or_404(Product, id=product_id)
@@ -462,9 +468,28 @@ def product_detail(request, product_id):
     except Exception as e:
         similar_products = []
 
+        # Get reviews for this product using ContentType
+    content_type = ContentType.objects.get_for_model(Product)
+    reviews = Review.objects.filter(content_type=content_type, object_id=product.pk)
+     # Handle Review Form submission
+    if request.method == "POST":
+        if not request.user.is_authenticated:
+            return redirect('login')
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.reviewer = request.user
+            review.content_object = product
+            review.save()
+            return redirect(product.get_absolute_url())
+    else:
+        form = ReviewForm()
+
     return render(request, 'product_detail.html', {
         'product': product,
         'similar_products': similar_products,
+        'reviews': reviews,
+        'form': form,
     })
 
 
@@ -576,3 +601,45 @@ def delete_product(request, product_id):
 def profile(request):
     products = Product.objects.filter(user=request.user)
     return render(request, 'profile.html', {'products': products})
+
+from django.shortcuts import render, get_object_or_404
+from .models import Product, Review
+from .forms import ReviewForm
+from thrifty.models import Product  # adjust path as needed
+from django.contrib.auth import get_user_model
+from .models import Review
+
+User = get_user_model()
+
+@login_required
+def add_review(request, model_name, object_id):
+    # Find the object being reviewed
+    if model_name == 'product':
+        target = get_object_or_404(Product, pk=object_id)
+    elif model_name == 'user':
+        target = get_object_or_404(User, pk=object_id)
+    else:
+        return redirect('home')  # Or some fallback page
+
+    # Get content type
+    content_type = ContentType.objects.get_for_model(target)
+
+    # Form handling
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.reviewer = request.user
+            review.content_type = content_type
+            review.object_id = object_id
+            review.save()
+            return redirect(request.POST.get('next') or target.get_absolute_url())
+    else:
+        form = ReviewForm()
+
+    return render(request, 'reviews/add_review.html', {
+        'form': form,
+        'target': target
+    })
+    
+

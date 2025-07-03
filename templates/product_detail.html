@@ -43,4 +43,38 @@
 </a>
 </div>
 
+
+<h2>Reviews</h2>
+
+{% for review in reviews %}
+    <div class="review">
+        <strong>{{ review.reviewer.username }}</strong> - 
+        <span class="review-rating">
+         {% for i in "12345" %}
+  {% if forloop.counter <= review.rating %}
+    ★
+  {% else %}
+    ☆
+  {% endif %}
+{% endfor %}
+
+        </span>
+        <p>{{ review.comment }}</p>
+        <small>{{ review.created_at|date:"F j, Y, g:i a" }}</small>
+    </div>
+{% empty %}
+    <p>No reviews yet.</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+    <h3>Write a Review</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Log in</a> to write a review.</p>
+{% endif %}
+
 {%endblock%}
