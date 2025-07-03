@@ -2,7 +2,7 @@ from django import forms
 from .models import Profile
 from .models import Product
 import uuid
-
+from .models import Review
 
 
 class ProfileForm(forms.ModelForm):
@@ -25,3 +25,21 @@ class ProductForm(forms.ModelForm):
         if commit:
             instance.save()
         return instance
+    
+
+
+from django import forms
+from .models import Review
+
+class ReviewForm(forms.ModelForm):  # or name it UserReviewForm
+    class Meta:
+        model = Review
+        fields = ['rating', 'comment']
+        widgets = {
+             'rating': forms.RadioSelect(choices=[(i, str(i)) for i in range(1, 6)]),
+            'comment': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Write your review here...'}),
+        }
+        labels = {
+            'rating': 'Rating (1–5)',
+            'comment': 'Your Review',
+        }

@@ -1,5 +1,7 @@
 from django.db import models
-
+from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes.fields import GenericForeignKey
 # Create your models here.
 from django.contrib.auth.models import User
 import uuid
@@ -32,7 +34,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from django.templatetags.static import static
-
+from django.urls import reverse
 
 class Product(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)  # User who uploaded (optional)
@@ -58,7 +60,10 @@ class Product(models.Model):
         else:
             return static('images/default_product.jpg')
 
-# models.py
+    def get_absolute_url(self):
+        return reverse('product_detail', kwargs={'product_id': self.product_id})
+
+    
 from django.contrib.auth.models import User
 
 class ProductView(models.Model):
@@ -103,3 +108,21 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.product.name} x {self.quantity}"
+
+User = get_user_model()
+class Review(models.Model):
+    reviewer   = models.ForeignKey(User, on_delete=models.CASCADE, related_name="reviews_written")
+    rating     = models.PositiveSmallIntegerField(choices=[(i,i) for i in range(1,6)])
+    comment    = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    # Generic foreign key to either Product or User
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)   
+    object_id    = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.reviewer} → {self.content_object} ({self.rating}/5)"
