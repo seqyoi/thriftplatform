@@ -3,7 +3,7 @@
 
 {% block content %}
 <style>
-  body {
+    body {
       font-family: 'Poppins', sans-serif;
       background-color: #fafafa;
       margin: 0;
@@ -99,76 +99,41 @@
       color: #888;
     }
 
-  </style>
-  <div class="profile-container">
-    <div class="profile-header">
-      <div class="profile-info">
-        <img src="{{ profile.profile_pic.url }}" class="profiles-pic" alt="Profile Picture">
-        <div>
+</style>
+
+<div class="profile-container">
+  <div class="profile-header">
+    <div class="profile-info">
+      <img src="{{ seller_profile.profile_pic.url }}" class="profiles-pic" alt="Profile Picture">
+      <div>
         <div class="username">{{ user_profile.username }}</div>
-        <div class="bio">{{ profile.bio }}</div>
+        <div class="bio">{{ seller_profile.bio }}</div>
         <div class="profile-stats">{{ products|length }} post{{ products|length|pluralize }}</div>
-      </div> 
-
-      </div>
-
-      <div class="action-buttons">
-        <a href="{% url 'edit_profile' request.user.username %}">Edit Profile</a>
-        <a href="{% url 'upload_product' %}">Add Post</a>
       </div>
     </div>
-
-   <h3>My Uploaded Products</h3>
-{% if products %}
-  <div style="display: flex; flex-wrap: wrap; gap: 20px;">
-    {% for product in products %}
-      <div style="border: 1px solid #ccc; padding: 10px; border-radius: 10px; width: 200px;">
-        <div class="shop-product-card"> 
-          
-          <!-- Product Image -->
-          <img src="{{ product.get_image_url }}" style="width: 100%; height: 150px; object-fit: cover;" alt="{{ product.name }}">         
-          
-          <!-- Product Info -->
-          <div class="product-name">{{ product.name }}</div>
-          <div class="product-price">Rs {{ product.price }}</div>
-          <div class="product-category">{{ product.category }}</div>
-
-          <!-- View Button (Always Visible) -->
-          <a href="{% url 'product_detail' product.id %}" style="text-decoration:none">
-            <button class="buy-button">View Product</button>
-          </a>
-
-
-        </div>
-      </div>
-    {% endfor %}
   </div>
-{% else %}
-  <p>You haven’t uploaded any products yet.</p>
-{% endif %}
 
-<h2>{{ profile.username }}'s Profile</h2>
+  <h3>{{ user_profile.username }}'s Uploaded Products</h3>
 
-<!-- Show reviews -->
-<h3>Reviews:</h3>
-<ul>
-  {% for review in reviews %}
-    <li><strong>{{ review.reviewer.username }}</strong>: {{ review.comment }} ({{ review.rating }}/5)</li>
-  {% empty %}
-    <li>No reviews yet.</li>
-  {% endfor %}
-</ul>
+  {% if products %}
+    <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+      {% for product in products %}
+        <div style="border: 1px solid #ccc; padding: 10px; border-radius: 10px; width: 200px;">
+          <div class="shop-product-card"> 
+            <img src="{{ product.get_image_url }}" style="width: 100%; height: 150px; object-fit: cover;" alt="{{ product.name }}">         
+            <div class="product-name">{{ product.name }}</div>
+            <div class="product-price">Rs {{ product.price }}</div>
+            <div class="product-category">{{ product.category }}</div>
 
-<!-- Write a review -->
-{% if user.is_authenticated and user.username != profile.username %}
-  <h3>Write a Review</h3>
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit Review</button>
-  </form>
-{% endif %}
-
-
-
-{%endblock%}
+            <a href="{% url 'product_detail' product.id %}" style="text-decoration:none">
+              <button class="buy-button">View Product</button>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>This user hasn’t uploaded any products yet.</p>
+  {% endif %}
+</div>
+{% endblock %}
