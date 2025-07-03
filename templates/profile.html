@@ -147,4 +147,28 @@
   <p>You haven’t uploaded any products yet.</p>
 {% endif %}
 
+<h2>{{ profile.username }}'s Profile</h2>
+
+<!-- Show reviews -->
+<h3>Reviews:</h3>
+<ul>
+  {% for review in reviews %}
+    <li><strong>{{ review.reviewer.username }}</strong>: {{ review.comment }} ({{ review.rating }}/5)</li>
+  {% empty %}
+    <li>No reviews yet.</li>
+  {% endfor %}
+</ul>
+
+<!-- Write a review -->
+{% if user.is_authenticated and user.username != profile.username %}
+  <h3>Write a Review</h3>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit Review</button>
+  </form>
+{% endif %}
+
+
+
 {%endblock%}

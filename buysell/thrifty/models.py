@@ -26,7 +26,18 @@ class CategoryImage(models.Model):
 
     def __str__(self):
         return f"Image for {self.category.name}"
-
     
+class Product(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    image = models.ImageField(upload_to='product_images/')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+
+
  
+
 
