@@ -1,0 +1,72 @@
+<!-- thriftplatform/templates/reviews/add_review.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Write a Review</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 0 20px;
+            background: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+        textarea, select, input[type="radio"] {
+            margin-top: 5px;
+            width: 100%;
+            font-size: 1rem;
+        }
+        button {
+            margin-top: 20px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            padding: 10px 18px;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .back-link {
+            margin-top: 15px;
+            display: inline-block;
+            color: #555;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Write a Review for "{{ target }}"</h1>
+
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">Submit Review</button>
+    </form>
+
+    <a href="{{ target.get_absolute_url }}" class="back-link">&larr; Back to {{ target }}</a>
+</body>
+</html>
