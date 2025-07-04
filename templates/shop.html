@@ -40,16 +40,15 @@
 }
 </style>
 <body>
+ 
 <section class="search-bar">
   <div class="search-container">
-    <form method="get" action="{% url 'search' %}">
+    <form method="get" action="{% url 'search' %}" class="search-form">
       <input type="text" name="q" placeholder="Search for vintage jackets, bags, shoes..." required>
       <button type="submit">Search</button>
+      <a href="{% url 'view_cart' %}" class="cart-button" title="View Cart"><i class="fas fa-shopping-cart custom-cart-icon"></i>
+      </a>
     </form>
-  
-    <a href="{% url 'view_cart' %}" class="cart-button" title="View Cart">
-      <img src="{% static 'images/cart-icon.png' %}" alt="Cart" class="cart-icon">
-    </a>
   </div>
 </section>
 
@@ -57,14 +56,14 @@
   <section class="shop-products">
     {% for product in products %}
       <div class="shop-product-card"> 
-        <a href="{% url 'product_detail' product.id %}" style="text-decoration:none;">
+        <a href="{% url 'product_detail' product_id=product.product_id %}" style="text-decoration:none;">
        <img class="shop-product-image" src="{{ product.get_image_url }}" alt="{{ product.name }}">
 
 
         <div class="product-name">{{ product.name }}</div>
         <div class="product-price">Rs {{ product.price }}</div></a>
         <div class="product-category">{{ product.category }}</div>
-        <a href="{% url 'product_detail' product.id %}"><button class="buy-button">View</button></a>
+        <a href="{% url 'product_detail' product_id=product.product_id %}"><button class="buy-button">View</button></a>
       </div>
     {% empty %}
       <p>No products found.</p>

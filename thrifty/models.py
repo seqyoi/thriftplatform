@@ -47,6 +47,7 @@ class Product(models.Model):
     rating = models.FloatField(null=True, blank=True)
     created_at = models.DateTimeField(default=timezone.now)
     price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    quantity = models.PositiveIntegerField(default=1)
 
     class Meta:
         ordering = ['-created_at']
@@ -62,6 +63,10 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('product_detail', kwargs={'product_id': self.product_id})
+    
+    def is_sold_out(self):
+        return self.quantity == 0
+    
 
     
 from django.contrib.auth.models import User

@@ -38,10 +38,13 @@ class Command(BaseCommand):
             self.stdout.write(self.style.ERROR(f"❌ Missing columns: {', '.join(missing)}"))
             return
 
+        # Drop rows missing essential fields
         df = df.dropna(subset=['product_id', 'product_name'])
+
+        # ✅ Cast product_id to string and strip whitespace (critical for your use case)
         df['product_id'] = df['product_id'].astype(str).str.strip()
 
-        # ✅ Get the default system user
+        # Get system user to assign as uploader for CSV products
         try:
             system_user = User.objects.get(username='thriftify_admin')
         except User.DoesNotExist:
@@ -50,24 +53,36 @@ class Command(BaseCommand):
 
         created_count = 0
         for _, row in df.iterrows():
-            image_url = f"category_images/{row['imagefilename']}" if 'imagefilename' in row else ''
+            image_url = f"category_images/{row['imagefilename']}" if 'imagefilename' in row and pd.notna(row['imagefilename']) else ''
+            
+            # Convert price safely
             price = None
             if 'price' in row and pd.notna(row['price']):
                 try:
                     price = float(row['price'])
-                except ValueError:
+                except (ValueError, TypeError):
                     price = None
 
+            # Clean category and description fields
+            category = row.get('category', '')
+            if pd.isna(category):
+                category = ''
+
+            description = row.get('description', '')
+            if pd.isna(description):
+                description = ''
+
+            # Create or update Product using string product_id
             _, created = Product.objects.update_or_create(
                 product_id=row['product_id'],
                 defaults={
                     'name': row['product_name'],
-                    'category': row.get('category', ''),
-                    'description': row.get('description') if pd.notna(row.get('description')) else '',
+                    'category': category,
+                    'description': description,
                     'image_url': image_url,
-                    'rating': float(row.get('rating')) if pd.notna(row.get('rating')) else None,
+                    'rating': float(row.get('rating')) if 'rating' in row and pd.notna(row['rating']) else None,
                     'price': price,
-                    'user': system_user,  # ✅ Assigns the uploader
+                    'user': system_user,  # Assign uploader
                 }
             )
             if created:

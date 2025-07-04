@@ -1,7 +1,105 @@
 {% extends 'home.html' %}
 {% load static %}
-
 {% block content %}
+
+<style>
+  .upload-container {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 30px 40px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .upload-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #222;
+    font-size: 26px;
+  }
+
+  .upload-form p {
+    margin-bottom: 20px;
+  }
+
+  .upload-form label {
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+    color: #333;
+  }
+
+  .upload-form input[type="text"],
+  .upload-form input[type="number"],
+  .upload-form input[type="file"],
+  .upload-form textarea,
+  .upload-form select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+
+  .upload-form input:focus,
+  .upload-form textarea:focus,
+  .upload-form select:focus {
+    border-color: #4CAF50;
+    outline: none;
+  }
+
+  .upload-form button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+  }
+
+  .upload-form button:hover {
+    background-color: #45a049;
+    transform: scale(1.01);
+  }
+
+  .upload-note {
+    font-size: 13px;
+    color: #777;
+    margin-top: -10px;
+    margin-bottom: 10px;
+  }
+
+  .errorlist {
+    color: red;
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 640px) {
+    .upload-container {
+      padding: 20px;
+    }
+
+    .upload-form input,
+    .upload-form textarea,
+    .upload-form select {
+      font-size: 14px;
+    }
+
+    .upload-form button {
+      font-size: 15px;
+    }
+  }
+</style>
 <div class="upload-container">
   <h2>Edit Product</h2>
   
@@ -13,11 +111,12 @@
   </form>
 
   <!-- Delete Button Form -->
-  <form method="POST" action="{% url 'delete_product' product.id %}" style="margin-top: 20px;">
+  <form method="POST" action="{% url 'delete_product' product.id %}" style="margin-top: 0;">
     {% csrf_token %}
     <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this product?');">
       Delete Product
     </button>
   </form>
 </div>
+
 {% endblock %}

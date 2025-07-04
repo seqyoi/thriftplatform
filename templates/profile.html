@@ -134,7 +134,7 @@
           <div class="product-category">{{ product.category }}</div>
 
           <!-- View Button (Always Visible) -->
-          <a href="{% url 'product_detail' product.id %}" style="text-decoration:none">
+          <a href="{% url 'product_detail' product_id=product.product_id %}" style="text-decoration:none">
             <button class="buy-button">View Product</button>
           </a>
 

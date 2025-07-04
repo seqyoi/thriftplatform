@@ -8,8 +8,193 @@
    <link rel="stylesheet" href="{% static 'css/style1.css' %}">
   {% comment %} <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> {% endcomment %}
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   
 </head>
+<style>
+  /* Chat Toggle Button */
+.chat-toggle {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+/* Chat Widget */
+.chat-widget {
+  position: fixed;
+  bottom: 90px;
+  right: 25px;
+  width: 330px;
+  height: 400px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: none;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 999;
+  font-family: Arial, sans-serif;
+}
+
+/* Chat Header */
+.chat-header {
+  background-color: #fbd0c8;
+  padding: 15px;
+  font-weight: bold;
+  text-align: center;
+  color: #333;
+}
+
+/* Message Containers */
+.chat-messages,
+.chat-body {
+  flex: 1;
+  padding: 10px 15px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scroll-behavior: smooth;
+}
+
+/* Individual Message Styles */
+.message {
+  padding: 10px 15px;
+  border-radius: 15px;
+  max-width: 75%;
+  font-size: 14px;
+  word-break: break-word;
+}
+
+.user {
+  background-color: #dcf8c6;
+  align-self: flex-end;
+}
+
+.bot {
+  background-color: #f1f0f0;
+  align-self: flex-start;
+}
+
+/* Chat Input Area */
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ddd;
+  background: #fff;
+  padding: 2px 4px; /* reduced padding for smaller height */
+  align-items: center;
+  max-height: 35px;
+}
+
+.chat-input input[type="text"] {
+  flex-grow: 1;
+  padding: 8px 12px; /* smaller padding */
+  font-size: 14px;   /* slightly smaller text */
+  border: none;
+  border-radius: 15px;
+  background: #f0f0f0;
+  outline: none;
+  width: 78%; /* control width to prevent it from stretching too far */
+}
+
+.chat-input button {
+  margin-left: 6px; /* closer to input */
+  padding: 8px 12px; /* smaller button */
+  background-color: #799567;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+
+.chat-input button:hover {
+  background-color: #6a8458;
+}
+.custom-cart-icon {
+  font-size: 24px;
+  color: #799567; 
+  vertical-align: middle;
+}
+.category-button {
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 8px;
+  background-color: #799567;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.category-button:hover {
+  background-color: #ddd;
+}
+/* Container for grid of products */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  padding: 30px 10px;
+}
+
+.shop-products {
+   display: grid;
+  grid-template-columns: repeat(4, 1fr);  /* Default: 3 per row */
+  gap: 20px;
+  padding: 20px;
+}
+.shop-product-card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  background: white;
+}
+@media (max-width: 992px) {
+  .shop-products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile (1 item per row) */
+@media (max-width: 600px) {
+  .shop-products {
+    grid-template-columns: 1fr;
+  }
+}
+
+.shop-product-image {
+  width: 220px;
+  height: 200px;
+  object-fit: cover;      /* Ensures cropping while filling the box */
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+.category-button.active {
+  background-color: #fbd0c8;   /* green highlight */
+  color: white;
+  font-weight: bold;
+ 
+}
+
+</style>
 
 <body>
 {% if messages %}
@@ -85,38 +270,49 @@
  
 <section class="search-bar">
   <div class="search-container">
-    <form method="get" action="{% url 'search' %}">
+    <form method="get" action="{% url 'search' %}" class="search-form">
       <input type="text" name="q" placeholder="Search for vintage jackets, bags, shoes..." required>
       <button type="submit">Search</button>
+      <a href="{% url 'view_cart' %}" class="cart-button" title="View Cart"><i class="fas fa-shopping-cart custom-cart-icon"></i>
+      </a>
     </form>
-  
-    <a href="{% url 'view_cart' %}" class="cart-button" title="View Cart">
-      <img src="{% static 'images/cart-icon.png' %}" alt="Cart" class="cart-icon">
-    </a>
   </div>
 </section>
+   
 
-  <section class="categories">
-    <div class="category">Tops</div>
-    <div class="category">Bottoms</div>
-    <div class="category">Dresses</div>
-    <div class="category">Shoes</div>
-    <div class="category">Bags</div>
-  </section>
+<section class="categories">
+ <button id="btn-Tshirt" class="category-button" onclick="loadCategory('Tshirt')">Tshirts</button>
+ <button id="btn-Dress" class="category-button" onclick="loadCategory('Dress')">Dress</button>
+ <button id="btn-Shoes" class="category-button" onclick="loadCategory('Shoes')">Shoes</button>
+ <button id="btn-Skirt" class="category-button" onclick="loadCategory('Skirt')">Skirts</button>
+<button id="btn-Hat" class="category-button" onclick="loadCategory('Hat')">Hat</button>
+</section>
+<div id="productSection"></div>
+<div style="text-align: center; margin: 20px;">
+  <button id="showMoreBtn" onclick="loadMore()" style="display: none;">Show More</button>
+</div>
+
 
   <h2 class="section-title">Trending Items</h2>
  {% if popular_products %}
 <section class="products"> 
     {% for product in popular_products %}
     <div class="product-card">
-        <a href="{% url 'product_detail' product.id %}" style="text-decoration:none;"><img src="{{ product.get_image_url }}" alt="{{ product.name }}">
+        <a href="{% url 'product_detail' product_id=product.product_id %}" style="text-decoration:none;"><img src="{{ product.get_image_url }}" alt="{{ product.name }}">
         <div class="product-name">{{ product.name }}</div></a>
         <div class="product-price">Rs {{ product.price }}</div>
         <div class="product-category">{{ product.category }}</div>
         </a>
         <!-- Add to Cart Button -->
-        <a href="{% url 'add_to_cart' product.id %}"><button class="buy-button">Add to Cart</button>
-        </a>
+        {% if product.is_sold_out %}
+  <button disabled class="btn disabled-btn">Sold Out</button>
+{% else %}
+  <form action="{% url 'add_to_cart' product.id %}" method="POST">
+    {% csrf_token %}
+    <button class="buy-button">Add to Cart</button>
+  </form>
+{% endif %}
+
        
     </div>
     {% endfor %}
@@ -129,21 +325,21 @@
 
 <!-- Chat Widget -->
 <div class="chat-widget" id="chatWidget">
-  <div class="chat-header">Thrifty Assistant</div>
+  <div class="chat-header">Thriftify Assistant</div>
   <div class="chat-messages" id="chat-messages">
         <div class="bot-message">Hi there! How can I help you today?</div>
       </div>
   <div class="chat-body" id="chatBody"></div>
   <div class="chat-input">
     <input type="text" id="user-input" placeholder="Ask me anything..."  required autocomplete="off"/>
-    <button onclick="sendChat()">Send</button>
+    <button type="submit" value="Send" onclick="sendChat()">Send</button>
   </div>
 </div>
 
   <script>
     const chatWidget = document.getElementById('chatWidget');
 const chatBody = document.getElementById('chatBody');
-const chatInput = document.getElementById('chatInput');
+const chatInput = document.getElementById('user-input');
 
 function toggleChat() {
   chatWidget.style.display = chatWidget.style.display === 'flex' ? 'none' : 'flex';
@@ -234,7 +430,7 @@ function getCookie(name) {
     slideIndex++;
     if (slideIndex > slides.length) slideIndex = 1;
     slides[slideIndex - 1].style.display = "block";
-    setTimeout(showSlides, 1000); // Change every 5 seconds
+    setTimeout(showSlides, 2000); // Change every 2 seconds
   };
 
   showSlides();
@@ -264,6 +460,64 @@ function getCookie(name) {
     }
   }
 </script>
+
+<script>
+let currentCategory = '';
+let currentPage = 1;
+let isVisible = false;
+
+function loadCategory(category) {
+  if (currentCategory === category && isVisible) {
+    // Hide products & deactivate button
+    document.getElementById('productSection').innerHTML = '';
+    document.getElementById('showMoreBtn').style.display = 'none';
+    isVisible = false;
+    toggleActiveButton('');
+    currentCategory = '';
+    return;
+  }
+
+  // Show products & activate button
+  currentCategory = category;
+  currentPage = 1;
+  isVisible = true;
+
+  fetch(`/category-api/${category}/?page=${currentPage}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('productSection').innerHTML = data.html;
+      document.getElementById('showMoreBtn').style.display = data.has_next ? 'inline-block' : 'none';
+      toggleActiveButton(category);
+    });
+}
+
+function toggleActiveButton(category) {
+  const buttons = document.querySelectorAll('.category-button');
+  buttons.forEach(btn => {
+    if (btn.id === `btn-${category}`) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+}
+
+function loadMore() {
+  currentPage++;
+
+  fetch(`/category-api/${currentCategory}/?page=${currentPage}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('productSection').insertAdjacentHTML('beforeend', data.html);
+      if (!data.has_next) {
+        document.getElementById('showMoreBtn').style.display = 'none';
+      }
+    });
+}
+
+</script>
+
+
 
 
 </body>
