@@ -5,6 +5,7 @@ from django.conf import settings
 from thrifty import views
 from .views import chatbot_ui, chatbot_reply
 from django.contrib.auth import views as auth_views
+from uuid import UUID 
 
 urlpatterns = [
     path('login/',views.login_view, name='login'),
@@ -42,7 +43,8 @@ urlpatterns = [
    path('product/<int:product_id>/delete/', views.delete_product, name='delete_product'),
    path('user/<str:username>/', views.profile, name='profile'),
     path('reviews/add/<str:model_name>/<int:object_id>/', views.add_review, name='add_review'),
-
+path('reviews/<int:review_id>/edit/', views.edit_review, name='edit_review'),
+    path('reviews/<int:review_id>/delete/', views.delete_review, name='delete_review'),
 
 ]
 

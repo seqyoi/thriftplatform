@@ -328,27 +328,53 @@ def checkout(request):
     return redirect('view_cart')
 
 
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth import get_user_model
+from .models import Review, Product
+from .forms import ReviewForm
 
-from django.shortcuts import render, get_object_or_404
-from .models import Profile, Product
+User = get_user_model()
 
 @login_required
 def profile_view(request, username):
     user_profile = get_object_or_404(User, username=username)
     profile = Profile.objects.filter(user=user_profile).first()
     products = Product.objects.filter(user=user_profile)
+    content_type = ContentType.objects.get_for_model(User)
+    
+    # Get reviews left for this user
+    reviews = Review.objects.filter(content_type=content_type, object_id=user_profile.id)
 
-    # Check if viewing own profile or someone else's
-    is_owner = request.user.is_authenticated and request.user == user_profile
+    # Handle review submission (only if reviewer != review target)
+    form = None
+    if request.user != user_profile:
+        if request.method == "POST":
+            form = ReviewForm(request.POST)
+            if form.is_valid():
+                review = form.save(commit=False)
+                review.reviewer = request.user
+                review.content_type = content_type
+                review.object_id = user_profile.id
+                review.save()
+                messages.success(request, "Review added.")
+                return redirect('user_profile', username=username)
+        else:
+            form = ReviewForm()
 
-    return render(request, 
-                  'profile.html' if is_owner else 'public_profile.html', 
-                  {
-                      'user_profile': user_profile,
-                      'profile': profile,        # in own profile
-                      'seller_profile': profile, # in public profile
-                      'products': products
-                  })
+    return render(
+        request,
+        'profile.html' if request.user == user_profile else 'public_profile.html',
+        {
+            'user_profile': user_profile,
+            'profile': profile,
+            'products': products,
+            'reviews': reviews,
+            'form': form,
+        }
+    )
+
 
 
 
@@ -435,6 +461,11 @@ def product_detail(request, product_id):
     if request.method == "POST":
         if not request.user.is_authenticated:
             return redirect('login')
+        
+        if product.user == request.user:
+            messages.error(request, "You cannot review your own product.")
+            return redirect(product.get_absolute_url())
+
         form = ReviewForm(request.POST)
         if form.is_valid():
             review = form.save(commit=False)
@@ -565,9 +596,15 @@ def delete_product(request, product_id):
     return redirect('product_detail', product.id)
 
 @login_required
-def profile(request):
-    products = Product.objects.filter(user=request.user)
-    return render(request, 'profile.html', {'products': products})
+def profile(request, username):
+    user_profile = get_object_or_404(User, username=username)
+    products = Product.objects.filter(user=user_profile)
+
+    return render(request, 'profile.html', {
+        'user_profile': user_profile,
+        'products': products,
+    })
+
 
 from django.shortcuts import render, get_object_or_404
 from .models import Product, Review
@@ -583,8 +620,16 @@ def add_review(request, model_name, object_id):
     # Find the object being reviewed
     if model_name == 'product':
         target = get_object_or_404(Product, pk=object_id)
+        if target.user == request.user:
+            messages.error(request, "You cannot review your own product.")
+            return redirect(target.get_absolute_url())
+        
     elif model_name == 'user':
         target = get_object_or_404(User, pk=object_id)
+        if target == request.user:
+            messages.error(request, "You cannot review your own account.")
+            return redirect('user_profile', username=request.user.username)
+        
     else:
         return redirect('home')  # Or some fallback page
 
@@ -615,3 +660,38 @@ from .models import Product
 def category_view(request, category_name):
     products = Product.objects.filter(category__iexact=category_name)
     return render(request, 'category_products.html', {'products': products, 'category_name': category_name})
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+@login_required
+def edit_review(request, review_id):
+    review = get_object_or_404(Review, pk=review_id)
+
+    if review.reviewer != request.user:
+        messages.error(request, "You are not authorized to edit this review.")
+        return redirect(review.content_object.get_absolute_url())
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Review updated successfully.")
+            return redirect(review.content_object.get_absolute_url())
+    else:
+        form = ReviewForm(instance=review)
+
+    return render(request, 'reviews/edit_review.html', {'form': form, 'review': review})
+
+@login_required
+def delete_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id)
+
+    if review.reviewer != request.user:
+         return HttpResponseForbidden("You cannot delete this review.")
+
+    if request.method == 'POST':
+        url = review.content_object.get_absolute_url()
+        review.delete()
+        messages.success(request, "Review deleted successfully.")
+        return redirect(url)
+
+    return render(request, 'reviews/delete_review_confirm.html', {'review': review})
