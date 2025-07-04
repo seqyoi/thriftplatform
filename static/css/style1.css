@@ -127,10 +127,6 @@ body {
 }
 
 /* Search Bar */
-.search-bar {
-    text-align: center;
-    margin: 40px auto;
-}
 
 /* .search-bar input {
     width: 60%;
@@ -140,13 +136,6 @@ body {
     border: 2px solid #799567;
     border-radius: 10px;
 } */
-
-.search-bar {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  margin: 40px auto;
-}
 
 /* .search-wrapper {
   display: inline-flex;
@@ -164,58 +153,72 @@ body {
   border: none;
   outline: none;
 } */
+.search-bar {
+  padding: 20px;
+  background-color: #f8f8f8;
+}
+
 .search-container {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: flex-start;
+  gap: 12px;
+  max-width: 900px;
+  margin: auto;
 }
 
-.search-container input[type="text"] {
-  width: 60vw;
-  max-width: 600px;
-  padding: 12px 18px;
-  font-size: 16px;
-  border: 2px solid #799567;
-  border-radius: 10px;
-  outline: none;
+.search-form {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+
 }
-.search-container button {
-  padding: 12px 20px;
-  background-color: #799567;
-  color: white;
+
+.search-form input[type="text"]{
+  flex: 1;
+  padding: 12px 14px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px 6px 6px 6px;
+  background-color: #f0f0f0;
+   margin: 13px;
+  
+}
+
+.search-form button {
+  padding: 15px 14px;
+  font-size: 16px;
   border: none;
-  border-radius: 10px;
-  font-size: 16px;
-  font-weight: 600;
+  background-color: #d32f2f;
+  color: white;
+  font-weight: bold;
+  border-radius: 0 6px 6px 0;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  margin-right: 10px;
+  margin-top: -5px;
 }
-
-.search-container button:hover {
-  background-color: #5B744B;
-}
-
 
 .cart-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
-  border-radius: 10px;
   background-color: #f0f0f0;
-  transition: background 0.2s ease;
-  height: 30px; /* match input height */
+  border-radius: 6px;
+  padding: 10px;
+  height: 48px; /* Match height of input+button */
 }
+
+.custom-cart-icon {
+  font-size: 22px;
+  color: #4CAF50;
+}
+
 
 .cart-button:hover {
   background-color: #e0e0e0;
 }
 
-.cart-icon {
-  width: 35px;
-  height: 35px;
-  object-fit: contain;
-}
+
 
 /* Categories */
 .categories {
@@ -552,30 +555,11 @@ body {
     }
 
     /* Detail Page Styling */
-    .product-detail-container {
-      max-width: 900px;
-      margin: auto;
-      background: #fff;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      display: none;
-      gap: 40px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
+    
 
-    .product-detail-container.active {
-      display: flex;
-    }
+  
 
-    .product-image.detail-image {
-      width: 500px;
-      height: 500px;
-      object-fit: cover;
-      border-radius: 50px;
-      flex-shrink: 0;
-    }
+  
 
     .product-info {
       flex: 1;
@@ -757,31 +741,40 @@ body {
 .chat-input-area,
 .chat-input {
   display: flex;
-  padding: 10px 15px;
+  padding: 100px;
   border-top: 1px solid #ddd;
   background: #fff;
+  align-items: center;
 }
 
 .chat-input input[type="text"] {
   flex-grow: 1;
-  padding: 10px;
+  padding: 10px 15px;
   font-size: 16px;
   border: none;
   border-radius: 15px;
   background: #f0f0f0;
+  outline: none;
 }
 
 .chat-input button,
-input[type="submit"],
-.send-button {
+.chat-input input[type="submit"],
+.chat-input .send-button {
   margin-left: 10px;
   padding: 10px 15px;
   background-color: #799567;
   color: white;
   border: none;
-  border-radius: 15px;
+  border-radius: 15px; /* Uncommented */
   cursor: pointer;
   font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.chat-input button:hover,
+.chat-input input[type="submit"]:hover,
+.chat-input .send-button:hover {
+  background-color: #6a8458;
 }
 
 .send-button:hover {
@@ -876,7 +869,7 @@ input[type="submit"],
 
   /* productdetailhtm;l */
 
-    .profile-pic {
+     .profile-pic {
       width: 35px;
       height: 35px;
       border-radius: 50%;
@@ -994,7 +987,7 @@ input[type="submit"],
     
     .send-button:hover {
       background-color: #5B744B;
-    }
+    } 
     /* Reviews Container */
 .review {
     background: #fff;
@@ -1035,10 +1028,10 @@ input[type="submit"],
 /* Review Form Styling */
 form {
     background: #fefefe;
-    border: 1px solid #ddd;
+    /* border: 1px solid #ddd; */
     padding: 20px;
     border-radius: 8px;
-    margin-top: 30px;
+    /* margin-top: 30px; */
 }
 
 form input[type="number"], form textarea {
@@ -1046,7 +1039,7 @@ form input[type="number"], form textarea {
     padding: 10px;
     margin-top: 6px;
     border-radius: 4px;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     font-size: 1rem;
     resize: vertical;
 }
@@ -1141,3 +1134,10 @@ form button[type="submit"]:hover {
     }
 
   
+.sold-out-badge {
+  background-color: #e74c3c;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}

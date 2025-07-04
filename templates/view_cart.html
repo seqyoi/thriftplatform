@@ -173,8 +173,18 @@
   <a href="{% url 'checkout' %}" style="text-decoration:none; color: inherit;">
     <button class="back-button">Proceed to Checkout</button>
   </a>
+   <div style="display: flex; justify-content: center;">
+   <a href="{% url 'shop' %}" style="display: inline-block; padding: 10px 20px; background-color: white; color: #5a774e; border: 2px solid #5a774e; border-radius: 5px; text-decoration: none; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.3s;">
+    ← Back to Shop
+</a>
+</div>
 {% else %}
   <p style="text-align: center; margin-top: 50px;">Your cart is empty.</p>
+   <div style="display: flex; justify-content: center;">
+   <a href="{% url 'shop' %}" style="display: inline-block; padding: 10px 20px; background-color: white; color: #5a774e; border: 2px solid #5a774e; border-radius: 5px; text-decoration: none; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: all 0.3s;">
+    ← Back to Shop
+</a>
+</div>
 {% endif %}
 
 {% endblock %}
