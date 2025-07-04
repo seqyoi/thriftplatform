@@ -223,18 +223,28 @@
         </span>
         <p>{{ review.comment }}</p>
         <small>{{ review.created_at|date:"F j, Y, g:i a" }}</small>
+
+        {% if user == review.reviewer %}
+      <p>
+        <a href="{% url 'edit_review' review.id %}">Edit</a> |
+        <a href="{% url 'delete_review' review.id %}">Delete</a>
+      </p>
+    {% endif %}
+
     </div>
 {% empty %}
     <p>No reviews yet.</p>
 {% endfor %}
 
-{% if user.is_authenticated %}
+{% if user.is_authenticated and product.user != user %}
     <h3>Write a Review</h3>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Submit</button>
     </form>
+    {% elif user == product.user %}
+    <p><em>You cannot review your own product.</em></p>
 {% else %}
     <p><a href="{% url 'login' %}">Log in</a> to write a review.</p>
 {% endif %}
