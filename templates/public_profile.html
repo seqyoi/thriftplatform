@@ -136,4 +136,46 @@
     <p>This user hasn’t uploaded any products yet.</p>
   {% endif %}
 </div>
+
+<h2>Reviews</h2>
+
+{% for review in reviews %}
+    <div class="review">
+        <strong>{{ review.reviewer.username }}</strong> - 
+        <span class="review-rating">
+            {% for i in "12345" %}
+                {% if forloop.counter <= review.rating %}
+                    ★
+                {% else %}
+                    ☆
+                {% endif %}
+            {% endfor %}
+        </span>
+        <p>{{ review.comment }}</p>
+        <small>{{ review.created_at|date:"F j, Y, g:i a" }}</small>
+
+        {% if user == review.reviewer %}
+      <p>
+        <a href="{% url 'edit_review' review.id %}">Edit</a> |
+        <a href="{% url 'delete_review' review.id %}">Delete</a>
+      </p>
+    {% endif %}
+    </div>
+{% empty %}
+    <p>No reviews yet.</p>
+{% endfor %}
+
+{% if user.is_authenticated and user != user_profile %}
+    <h3>Write a Review</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+{% elif user == user_profile %}
+    <p><em>You cannot review your own profile.</em></p>
+{% else %}
+    <p><a href="{% url 'login' %}">Log in</a> to write a review.</p>
+{% endif %}
+
 {% endblock %}
