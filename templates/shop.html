@@ -2,6 +2,43 @@
 {% load static %}
 
 {% block content %}
+<style>
+.shop-products {
+   display: grid;
+  grid-template-columns: repeat(4, 1fr);  /* Default: 3 per row */
+  gap: 20px;
+  padding: 20px;
+}
+.shop-product-card {
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  background: white;
+}
+@media (max-width: 992px) {
+  .shop-products {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile (1 item per row) */
+@media (max-width: 600px) {
+  .shop-products {
+    grid-template-columns: 1fr;
+  }
+}
+
+.shop-product-image {
+  width: 220px;
+  height: 200px;
+  object-fit: cover;      /* Ensures cropping while filling the box */
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+</style>
 <body>
 <section class="search-bar">
   <div class="search-container">
@@ -34,21 +71,5 @@
     {% endfor %}
   </section>
 </body>
-  <script>
-  function toggleDropdown() {
-    const dropdown = document.getElementById("profileDropdown");
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-  }
-
-  // Optional: hide dropdown when clicking outside
-  window.onclick = function(event) {
-    if (!event.target.matches('.profile-pic')) {
-      const dropdown = document.getElementById("profileDropdown");
-      if (dropdown && dropdown.style.display === "block") {
-        dropdown.style.display = "none";
-      }
-    }
-  }
-</script>
 
 {% endblock %}
