@@ -65,7 +65,7 @@
       font-weight: 600;
     }
 
-  
+ 
     .buy-button {
       background-color: #799567;
       color: white;
@@ -74,7 +74,9 @@
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
+      margin:13px;
     }
+
 
     .chat-button {
       background-color: #e2e8ec;
@@ -87,7 +89,7 @@
 
   .actions {
   display: flex;
-  gap: 10px;
+  gap: 5px;
   margin-top: 15px;
   flex-wrap: wrap; /* optional, helpful on small screens */
 }
@@ -153,13 +155,15 @@
       <div class="product-description" id="detailDesc">{{ product.description }}</div>
       <div class="product-price" id="detailPrice">Rs {{ product.price }}</div>
       <div class="shop-name" id="detailShop"><em>Shop: {{ product.category }}</em></div>
-      <div class="quantity">Quantity: 1
-          {% if product.is_sold_out %}
-      <span class="sold-out-badge">Sold Out</span>
-    {% else %}
-      <span class="in-stock">In Stock</span>
-    {% endif %}
+      <div class="quantity">
+  {% if product.is_sold_out %}
+    <span class="sold-out-badge">Sold Out</span>
+  {% else %}
+    Quantity Available: {{ product.quantity }}<br>
+    <span class="in-stock">In Stock</span>
+  {% endif %}
 </div>
+
   <div class="seller-info" style="margin-top: 30px; display: flex; align-items: center; gap: 15px;">
   <a href="{% url 'user_profile' product.user.username %}" style="display: flex; align-items: center; text-decoration: none; color: inherit;">
     <img src="{{ seller_profile.profile_pic.url }}" alt="Seller Profile" >
@@ -184,16 +188,22 @@
       </button>
     </form>
   {% else %}
-    <!-- Other users see Add to Cart and Chat buttons -->
-    <a href="{% url 'add_to_cart' product.id %}"><button class="buy-button">Add to Cart</button>
-    </a>
-    <button class="buy-button">Live Chat</button>
-  {% endif %}
-</div>
 
+    <form method="POST" action="{% url 'add_to_cart' product.id %}" style="display:inline;">
+  {% csrf_token %}
+  <button type="submit" class="buy-button"
+    {% if product.is_sold_out %}disabled style="opacity: 0.6; cursor: not-allowed;"{% endif %}>
+    {% if product.is_sold_out %}Out of Stock{% else %}Add to Cart{% endif %}
+  </button>
+  </form>
+    <a href="#">
+     <button class="buy-button">Live Chat</button></a>
+     </div>
+  {% endif %}
 
     </div>
   </div>
+</div>
    
 {% if similar_products %}
 <h2 class="section-title">You May Also Like</h2>
@@ -262,5 +272,7 @@
 {% else %}
     <p><a href="{% url 'login' %}">Log in</a> to write a review.</p>
 {% endif %}
+
+
 
 {%endblock%}
