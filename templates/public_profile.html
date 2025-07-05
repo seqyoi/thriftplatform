@@ -125,7 +125,7 @@
             <div class="product-price">Rs {{ product.price }}</div>
             <div class="product-category">{{ product.category }}</div>
 
-            <a href="{% url 'product_detail' product_id=product.product.id %}" style="text-decoration:none">
+            <a href="{% url 'product_detail' product_id=product.product_id %}" style="text-decoration:none">
               <button class="buy-button">View Product</button>
             </a>
           </div>

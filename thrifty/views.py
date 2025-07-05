@@ -286,20 +286,38 @@ def product_list(request):
 
 from django.contrib.auth.decorators import login_required
 
+from django.contrib import messages
+from django.shortcuts import get_object_or_404, redirect
+from .models import Product, CartItem  # adjust import as needed
+
 def add_to_cart(request, product_id):
     if not request.user.is_authenticated:
         messages.error(request, "You must be logged in to add items to your cart.")
-        return redirect(request.META.get('HTTP_REFERER', 'home'))  # Change 'home' to your login or landing page
+        return redirect(request.META.get('HTTP_REFERER', 'home'))
 
     product = get_object_or_404(Product, id=product_id)
 
-    # Optional: Check if already in cart
+    # Get or create cart item
     cart_item, created = CartItem.objects.get_or_create(user=request.user, product=product)
-    if not created:
-        cart_item.quantity += 1
-        cart_item.save()
 
-    return redirect('view_cart')  # Change to your cart view name if needed
+    if not created:
+        if cart_item.quantity < product.quantity:
+            cart_item.quantity += 1
+            cart_item.save()
+            messages.success(request, f"{product.name} quantity updated in your cart.")
+        else:
+            messages.warning(request, f"Only {product.quantity} item(s) available in stock.")
+    else:
+        if product.quantity > 0:
+            cart_item.quantity = 1
+            cart_item.save()
+            messages.success(request, f"{product.name} added to your cart.")
+        else:
+            cart_item.delete()  # Prevent creating item with 0 stock
+            messages.warning(request, f"{product.name} is out of stock.")
+
+    return redirect('view_cart')
+ # Change to your cart view name if needed
 
 from .models import CartItem
 @login_required
