@@ -17,18 +17,29 @@ from django.contrib.auth import logout
 from django.contrib.contenttypes.models import ContentType
 
 
+
+from django.core.mail import send_mail
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.contrib.auth.models import User
+from .models import EmailOTP  
+import random
+
+def generate_otp():
+    return str(random.randint(100000, 999999))
+
+
 def register(request):
-    if request.method=="POST":   
-        print("Login POST triggered") 
-        username=request.POST.get('username')
-        email=request.POST.get('email')
-        password=request.POST.get('password')
-        full_name = request.POST.get('full_name', '').strip()
+    if request.method == "POST":
+        print("Register POST triggered")
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        full_name = request.POST.get('fullname', '').strip()
 
         first_name = full_name.split()[0] if full_name else ''
         last_name = ' '.join(full_name.split()[1:]) if len(full_name.split()) > 1 else ''
         user_data_has_error = False
-            # make sure email and username are not being used
 
         if User.objects.filter(username=username).exists():
             user_data_has_error = True
@@ -38,25 +49,75 @@ def register(request):
             user_data_has_error = True
             messages.error(request, 'Email already exists')
 
-            # make aure password is at least 5 characters long
         if len(password) < 5:
             user_data_has_error = True
             messages.error(request, 'Password must be at least 5 characters')
 
         if not user_data_has_error:
             new_user = User.objects.create_user(
-             
-                email = email,
-                username = username,
-                password = password,
+                username=username,
+                email=email,
+                password=password,
                 first_name=first_name,
-               last_name=last_name
-        )
-            messages.success(request, 'Account created. Login now')
-            return redirect('login')
+                last_name=last_name,
+                is_active=False  
+            )
+
+            otp = generate_otp()
+            EmailOTP.objects.update_or_create(user=new_user, defaults={'otp': otp})
+
+            # Send OTP to user's email
+            send_mail(
+                'Your Thriftify OTP Code',
+                f'Hello {new_user.first_name},\n\nYour OTP for verifying your Thriftify account is: {otp}',
+                'noreply@thriftify.com',
+                [email],
+                fail_silently=False,
+            )
+
+            messages.success(request, 'Account created! Check your email for the OTP to verify your account.')
+            return redirect('verify_otp', user_id=new_user.id)
+
         else:
             return redirect('register')
+
     return render(request, 'register.html')
+
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from django.contrib.auth.models import User
+from .models import EmailOTP
+
+def verify_otp(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    
+    if request.method == 'POST':
+        entered_otp = request.POST.get('otp')
+        try:
+            otp_record = EmailOTP.objects.get(user=user)
+
+            if otp_record.is_expired():
+                messages.error(request, "OTP expired. Please register again.")
+                user.delete()  # Clean up user
+                otp_record.delete()
+                return redirect('register')
+
+            if entered_otp == otp_record.otp:
+                user.is_active = True
+                user.save()
+                otp_record.delete()  # Clean up OTP record
+                messages.success(request, "Your email has been verified. You can now log in.")
+                return redirect('login')
+            else:
+                messages.error(request, "Invalid OTP. Please try again.")
+        except EmailOTP.DoesNotExist:
+            messages.error(request, "No OTP record found. Please register again.")
+            return redirect('register')
+
+    return render(request, 'verify_otp.html', {'user': user})
+
+
 
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.cache import never_cache
@@ -581,14 +642,16 @@ from django.contrib.auth.decorators import login_required
 def edit_product(request, username, product_id):
     product = get_object_or_404(Product, id=product_id)
 
-    if product.user.username != username or product.user != request.user:
+    if product.user != request.user:
         return HttpResponseForbidden("You are not allowed to edit this product.")
+
 
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
-            return redirect('user_profile', product.id)
+            return redirect('user_profile', username=product.user.username)
+
     else:
         form = ProductForm(instance=product)
 
@@ -713,3 +776,145 @@ def delete_review(request, review_id):
         return redirect(url)
 
     return render(request, 'reviews/delete_review_confirm.html', {'review': review})
+
+
+from django.contrib.auth import logout
+
+@login_required
+def delete_account(request):
+    if request.method == 'POST':
+        user = request.user
+        logout(request)  # Log out the user before deleting
+        user.delete()    # Deletes the user and any related data via cascading
+        messages.success(request, 'Your account has been permanently deleted.')
+        return redirect('home')  # Redirect to homepage or login page
+
+    return render(request, 'delete_account.html')
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .models import CartItem, Order, OrderItem  
+from django.utils import timezone
+
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Order, OrderItem, CartItem, Product
+from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+
+@login_required
+def checkout(request):
+    if request.method == 'POST':
+        address_type = request.POST.get('address-type', '').strip()
+        full_address = request.POST.get('full-address', '').strip()
+        phone = request.POST.get('number', '').strip()
+        receiver_name = request.POST.get('receiver-name', '').strip()
+
+        # Basic validation
+        if not all([address_type, full_address, phone, receiver_name]):
+            messages.error(request, "All fields are required.")
+            return redirect('checkout')
+
+        cart_items = CartItem.objects.filter(user=request.user)
+
+        if not cart_items.exists():
+            messages.error(request, "Your cart is empty.")
+            return redirect('view_cart')
+
+        # Create order
+        order = Order.objects.create(
+            user=request.user,
+            address_type=address_type,
+            address=full_address,
+            phone=phone,
+            receiver_name=receiver_name,
+            status='Placed',
+            order_date=timezone.now()
+        )
+
+        # Create order items
+        for item in cart_items:
+            OrderItem.objects.create(
+                order=order,
+                product=item.product,
+                quantity=item.quantity,
+                price=item.product.price
+            )
+            # Optional: reduce product quantity
+            item.product.quantity -= item.quantity
+            item.product.save()
+
+        # Clear user's cart
+        cart_items.delete()
+
+        messages.success(request, "Your order has been placed successfully!")
+        return redirect('order_success', order_id=order.id)
+
+    return render(request, 'checkout.html')
+
+@login_required
+def order_success(request, order_id):
+    order = Order.objects.get(id=order_id, user=request.user)
+    return render(request, 'order_success.html', {'order': order})
+
+
+@login_required
+def order_detail(request, order_id):
+    order = Order.objects.get(id=order_id, user=request.user)
+    order_items = OrderItem.objects.filter(order=order)
+
+    total_amount = sum(item.price * item.quantity for item in order_items)
+
+    return render(request, 'order_detail.html', {
+        'order': order,
+        'order_items': order_items,
+        'total_amount': total_amount,
+    })
+
+from django.utils.timezone import now
+
+@login_required
+def purchased_orders(request):
+    orders = Order.objects.filter(user=request.user).order_by('-order_date')
+
+    for order in orders:
+        time_elapsed = now() - order.order_date
+        order.can_cancel = order.status == 'Placed' and time_elapsed.total_seconds() <= 1800
+
+    return render(request, 'purchased_orders.html', {'orders': orders})
+
+
+from django.utils.timezone import now
+from django.contrib import messages
+from django.shortcuts import redirect, get_object_or_404
+from .models import Order, OrderItem
+
+@login_required
+def cancel_order(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+
+    time_elapsed = now() - order.order_date
+
+    if order.status != "Placed":
+        messages.error(request, "Order cannot be cancelled.")
+    elif time_elapsed.total_seconds() > 1800:
+        messages.error(request, "You can only cancel within 30 minutes of placing the order.")
+    else:
+        for item in order.orderitem_set.all():
+            product = item.product
+            if product:
+                product.quantity += item.quantity
+                product.save()
+
+        order.status = "Cancelled"
+        order.save()
+
+        messages.success(request, "Order has been cancelled and products restocked.")
+
+    return redirect('purchased_orders')
+
+
+def about(request):
+    return render(request, 'about.html')

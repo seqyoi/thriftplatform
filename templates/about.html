@@ -1,0 +1,29 @@
+<section style="max-width: 900px; margin: 60px auto; padding: 40px; font-family: 'Segoe UI', sans-serif; background: #fff; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.08);">
+  <h2 style="text-align: center; font-size: 32px; color: #333; margin-bottom: 20px;">About Thriftify</h2>
+  
+  <p style="font-size: 17px; color: #555; line-height: 1.8;">
+    <strong>Thriftify</strong> is a community-powered C2C thrift e-commerce platform dedicated to giving second-hand fashion and goods a second life. We believe that style doesn’t have to cost the planet — or your wallet. That’s why we make it easy for individuals to buy and sell pre-loved items directly to each other.
+  </p>
+
+  <p style="font-size: 17px; color: #555; line-height: 1.8;">
+    Whether you’re a seller looking to declutter your wardrobe or a buyer searching for unique, affordable pieces, Thriftify provides a safe, simple, and sustainable way to connect. Our goal is to reduce waste, promote mindful shopping, and build a community where fashion meets purpose.
+  </p>
+
+  <p style="font-size: 17px; color: #555; line-height: 1.8;">
+    With user-friendly features like secure chat, product recommendations, and easy uploads, Thriftify makes the thrift experience seamless and rewarding. Join us on our mission to make second-hand the first choice!
+  </p>
+
+ {% if not request.user.is_authenticated %}
+  <div style="text-align:center; margin-bottom:20px;">
+    <a href="{% url 'login' %}" style="padding:10px 20px; background:#4CAF50; color:#fff; border-radius:5px; text-decoration:none; margin-right:10px;">Log In</a>
+    <a href="{% url 'register' %}" style="padding:10px 20px; background:#2196F3; color:#fff; border-radius:5px; text-decoration:none;">Register</a>
+  </div>
+  {% else %}
+  <div style="text-align:center; margin-bottom:20px;">
+    <a href="{% url 'home' %}" style="padding:10px 20px; background: #4CAF50;; color:#fff; border-radius:5px; text-decoration:none;">Get Started</a>
+  </div>
+{% endif %}
+
+
+
+</section>

@@ -153,11 +153,11 @@
       <h2>{{ item.product.name }}</h2>
       <p>{{ item.product.description }}</p>
       <div class="price">Rs {{ item.product.price }}</div>
-      <div class="shop">Shop: {{ item.product.category }}</div>
+      <div class="shop">Category: {{ item.product.category }}</div>
       <div class="quantity">Quantity: {{ item.quantity }}</div>
 
       <div class="btn-group">
-        <button class="buy-btn">Buy Now</button>
+        {% comment %} <button class="buy-btn">Buy Now</button> {% endcomment %}
         <button class="chat-btn">Live Chat</button>
       </div>
 

@@ -141,3 +141,42 @@ def user_get_absolute_url(self):
     return reverse('profile', kwargs={'username': self.username})
 
 User.add_to_class("get_absolute_url", user_get_absolute_url)
+
+
+from django.db import models
+from django.contrib.auth.models import User
+
+class Order(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    address_type = models.CharField(max_length=100)
+    address = models.TextField()
+    phone = models.CharField(max_length=15)
+    receiver_name = models.CharField(max_length=100)
+    status = models.CharField(max_length=20, default='Placed')
+    order_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Order #{self.id} by {self.user.username}"
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    quantity = models.PositiveIntegerField(default=1)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return f"{self.quantity} x {self.product.name} (Order #{self.order.id})"
+
+import random
+from django.utils import timezone
+from datetime import timedelta
+
+class EmailOTP(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    otp = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def is_expired(self):
+        from django.utils import timezone
+        from datetime import timedelta
+        return timezone.now() > self.created_at + timedelta(minutes=10)

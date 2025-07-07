@@ -1,0 +1,246 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Confirmation</title>
+  <style>
+    /* [Your styles unchanged] */
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      color: #5a774e;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #5a774e;
+    }
+
+    .section {
+      margin-bottom: 25px;
+      padding: 20px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .section-title {
+      font-weight: bold;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 18px;
+    }
+
+    .address-box {
+      padding: 15px;
+      margin-top: 10px;
+    }
+
+    input[type="text"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .input-label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .validation-error {
+      color: #ff3333;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .place-order {
+      background-color: #5a774e;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 12px 20px;
+      font-size: 16px;
+      font-weight: bold;
+      width: 100%;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+
+    .place-order:hover {
+      background-color: #486441;
+    }
+
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      background-color: #ccc !important;
+    }
+
+    .back-to-cart {
+      display: block;
+      text-align: center;
+      margin-top: 25px;
+      padding: 12px;
+      background-color: white;
+      color: #5a774e;
+      border: 2px solid #5a774e;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      text-align: center;
+      max-width: 400px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal h2 {
+      color: #5a774e;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Confirm your order</h1>
+
+  <form method="POST" action="{% url 'checkout' %}">
+    {% csrf_token %}
+    <div class="section">
+      <div class="section-title">Select Address</div>
+      <div class="address-box">
+        <label class="input-label">Address Type (e.g., home, work):</label>
+        <input type="text" id="address-type" name="address-type" class="required-field" required>
+        <div class="validation-error" id="address-type-error">Please enter address type</div>
+
+        <label class="input-label">Full Address:</label>
+        <input type="text" id="full-address" name="full-address" class="required-field" required>
+        <div class="validation-error" id="full-address-error">Please enter full address</div>
+
+        <label class="input-label">Phone Number:</label>
+        <input type="text" id="number" name="number" class="required-field"
+          pattern="[0-9]{10}" maxlength="10" required>
+        <div class="validation-error" id="number-error">Please enter your phone number correctly</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Delivery Information</div>
+      <div class="info-text">Estimated Delivery: 1-2 days</div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Name</div>
+      <div class="address-box">
+        <label class="input-label">Receiver Name:</label>
+        <input type="text" id="receiver-name" name="receiver-name" class="required-field" required>
+        <div class="validation-error" id="receiver-name-error">Please enter receiver name</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Payment Information</div>
+      <div class="info-text">Payment Method: Cash on Delivery</div>
+    </div>
+
+    <button class="place-order" id="place-order-btn" type="submit" disabled>Place Order</button>
+  </form>
+
+  <a href="#" onclick="event.preventDefault(); history.back();" class="back-to-cart">← Back to Cart</a>
+
+  <div class="modal" id="success-modal">
+    <div class="modal-content">
+      <h2>Order Placed Successfully!</h2>
+      <p>Thank you for your purchase. Your order has been confirmed.</p>
+      <button onclick="redirectToCart()">Continue</button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const placeOrderBtn = document.getElementById('place-order-btn');
+      const requiredFields = document.querySelectorAll('.required-field');
+      const phoneInput = document.getElementById('number');
+
+      requiredFields.forEach(field => {
+        field.addEventListener('input', validateForm);
+        field.addEventListener('blur', showValidationError);
+      });
+
+      phoneInput.addEventListener('input', function () {
+        this.value = this.value.replace(/\D/g, '');
+        validateForm();
+      });
+
+      function validateForm() {
+        let isValid = true;
+        requiredFields.forEach(field => {
+          if (!field.value.trim()) isValid = false;
+        });
+
+        if (phoneInput.value.length !== 10) isValid = false;
+
+        placeOrderBtn.disabled = !isValid;
+        return isValid;
+      }
+
+      function showValidationError(e) {
+        const field = e.target;
+        const errorElement = document.getElementById(`${field.id}-error`);
+
+        if (field.id === 'number') {
+          if (field.value.length !== 10) {
+            errorElement.style.display = 'block';
+            field.classList.add('invalid');
+          } else {
+            errorElement.style.display = 'none';
+            field.classList.remove('invalid');
+          }
+        } else {
+          if (!field.value.trim()) {
+            errorElement.style.display = 'block';
+            field.classList.add('invalid');
+          } else {
+            errorElement.style.display = 'none';
+            field.classList.remove('invalid');
+          }
+        }
+      }
+    });
+
+    function redirectToCart() {
+      window.location.href = "{% url 'view_cart' %}";
+    }
+  </script>
+</body>
+</html>
