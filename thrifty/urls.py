@@ -10,6 +10,8 @@ from uuid import UUID
 urlpatterns = [
     path('login/',views.login_view, name='login'),
     path("register/",views.register, name= 'register'),
+    path('verify-otp/<int:user_id>/', views.verify_otp, name='verify_otp'),
+
     path('', views.home_view, name='home'),
     path('logout/', views.logout_view, name='logout'),
     path('shop/',views.shop_view, name='shop'),
@@ -40,11 +42,19 @@ urlpatterns = [
     path('search/', views.search_products, name='search'),  # i have added search here inside the main list
     path('upload/', views.upload_product, name='upload_product'),
    path('profile/<str:username>/edit/<int:product_id>/', views.edit_product, name='edit_product'),
+   
    path('product/<int:product_id>/delete/', views.delete_product, name='delete_product'),
    path('user/<str:username>/', views.profile, name='profile'),
     path('reviews/add/<str:model_name>/<int:object_id>/', views.add_review, name='add_review'),
 path('reviews/<int:review_id>/edit/', views.edit_review, name='edit_review'),
     path('reviews/<int:review_id>/delete/', views.delete_review, name='delete_review'),
+
+ path('order/<int:order_id>/success/', views.order_success, name='order_success'),
+    path('order/<int:order_id>/', views.order_detail, name='order_detail'),
+    path('purchased/', views.purchased_orders, name='purchased_orders'),
+    path('order/<int:order_id>/cancel/', views.cancel_order, name='cancel_order'),
+
+path('about/', views.about, name='about'),
 
 ]
 

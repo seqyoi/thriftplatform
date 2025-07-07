@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            color: #333;
+        }
+
+        h1 {
+            color: #5a774e;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .order-summary {
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .order-summary h2 {
+            margin-top: 0;
+            font-size: 20px;
+        }
+
+        .order-items table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .order-items th, .order-items td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .order-items th {
+            background-color: #5a774e;
+            color: white;
+        }
+
+        .total {
+            font-weight: bold;
+            font-size: 18px;
+            text-align: right;
+            padding-top: 10px;
+        }
+
+        a.back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #5a774e;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Order #{{ order.id }} Details</h1>
+
+    <div class="order-summary">
+        <h2>Shipping Info</h2>
+        <p><strong>Receiver:</strong> {{ order.receiver_name }}</p>
+        <p><strong>Address:</strong> {{ order.address_type }} - {{ order.address }}</p>
+        <p><strong>Phone:</strong> {{ order.phone }}</p>
+        <p><strong>Status:</strong> {{ order.status }}</p>
+        <p><strong>Date:</strong> {{ order.order_date|date:"F j, Y, g:i a" }}</p>
+    </div>
+
+    <div class="order-items">
+        <h2>Items Ordered</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Price (Rs)</th>
+                    <th>Subtotal (Rs)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.price }}</td>
+                    <td>{{ item.price|floatformat:2|add:item.quantity|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p class="total">
+           <p><strong>Total Amount:</strong> Rs {{ total_amount }}</p>
+        </p>
+    </div>
+    {% if order.status == 'Placed' %}
+  {% if order.order_date|timesince < "30 minutes" %}
+    <form method="post" action="{% url 'cancel_order' order.id %}">
+      {% csrf_token %}
+      <button type="submit" onclick="return confirm('Are you sure you want to cancel this order?');">
+        Cancel Order
+      </button>
+    </form>
+  {% endif %}
+{% endif %}
+
+
+    <a href="{% url 'view_cart' %}" class="back-link">← Back to Cart</a>
+</body>
+</html>
