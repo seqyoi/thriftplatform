@@ -138,6 +138,6 @@ from django.urls import reverse
 # Add a get_absolute_url method to the User model
 
 def user_get_absolute_url(self):
-    return reverse('profile', kwargs={'username': self.username})
+    return reverse('user_profile', kwargs={'username': self.username})
 
 User.add_to_class("get_absolute_url", user_get_absolute_url)

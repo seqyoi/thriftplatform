@@ -1,11 +1,11 @@
 import os
 import django
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'buysell.settings')  # Replace 'your_project' with your Django project name
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'buysell.settings')  
 django.setup()
 
 from django.core.files import File
-from thrifty.models import Category, CategoryImage  # Replace 'thrifty' with your app name
+from thrifty.models import Category, CategoryImage  
 
 IMAGE_FOLDER = 'media/category_images/'  # Where your images are stored
 

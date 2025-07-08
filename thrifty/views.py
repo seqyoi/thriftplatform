@@ -699,17 +699,30 @@ def edit_review(request, review_id):
 
     return render(request, 'reviews/edit_review.html', {'form': form, 'review': review})
 
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib import messages
+from django.http import HttpResponseForbidden
+from .models import Review
+
 @login_required
+
+
 def delete_review(request, review_id):
     review = get_object_or_404(Review, id=review_id)
 
     if review.reviewer != request.user:
-         return HttpResponseForbidden("You cannot delete this review.")
+        return HttpResponseForbidden("You cannot delete this review.")
+
+    target_object = review.content_object  # Could be Product or User
 
     if request.method == 'POST':
-        url = review.content_object.get_absolute_url()
         review.delete()
         messages.success(request, "Review deleted successfully.")
-        return redirect(url)
+
+        # Safely redirect to the reviewed object's page
+        if hasattr(target_object, 'get_absolute_url') and callable(getattr(target_object, 'get_absolute_url')):
+            return redirect(target_object.get_absolute_url())
+        else:
+            return redirect('home')  # fallback if no URL is defined
 
     return render(request, 'reviews/delete_review_confirm.html', {'review': review})
