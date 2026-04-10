@@ -14,7 +14,7 @@ Traditional thrift platforms rely heavily on manual input for product listing an
 
 ---
 
-## 💡 Solution
+##  Solution
 
 This platform provides an intelligent thrift marketplace with integrated AI features to improve usability and user experience:
 
@@ -42,7 +42,7 @@ This platform provides an intelligent thrift marketplace with integrated AI feat
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 ### Backend
 
@@ -57,7 +57,7 @@ This platform provides an intelligent thrift marketplace with integrated AI feat
 
 * SQLite (can be extended to PostgreSQL)
 
-## ⚙️ Installation & Setup
+##  Installation & Setup
 
 1. Clone the repository:
 
@@ -104,7 +104,7 @@ This platform provides an intelligent thrift marketplace with integrated AI feat
 
 ---
 
-## 🔄 How It Works
+##  How It Works
 
 1. User signs up or logs in providing their credentials
 2. after authentication, they can browse the platform interactively
@@ -115,7 +115,7 @@ This platform provides an intelligent thrift marketplace with integrated AI feat
 ---
 
 
-## 🚀 Future Improvements
+##  Future Improvements
 
 * Improve model accuracy with larger dataset
 * Add payment integration
@@ -123,12 +123,10 @@ This platform provides an intelligent thrift marketplace with integrated AI feat
 
 ---
 
-## 👤 Authors 
+##  Authors 
 -Cilus Duwadi, Juniper Poudyal, Sujina Shrestha
 Undergraduate Computer Engineering Student 
 
 ---
 
-## 📌 Note
 
-This project is developed as part of an undergraduate project to explore the integration of machine learning with full-stack web development.
