@@ -37,24 +37,28 @@ urlpatterns = [
     path('product/<str:product_id>/', views.product_detail, name='product_detail'),
     path('product/id/<int:id>/', views.product_redirect_by_id, name='product_redirect_by_id'),
 
-    path('chat/', views.chatbot_ui, name='chat-ui'),
+
+    # path('chat/', include('chat.urls')),
+
+    path('chat1/', views.chatbot_ui, name='chat-ui'),
     path('chatbot/reply/', views.chatbot_reply, name='chatbot-reply'),
     path('search/', views.search_products, name='search'),  # i have added search here inside the main list
     path('upload/', views.upload_product, name='upload_product'),
-   path('profile/<str:username>/edit/<int:product_id>/', views.edit_product, name='edit_product'),
+    path('profile/<str:username>/edit/<int:product_id>/', views.edit_product, name='edit_product'),
    
-   path('product/<int:product_id>/delete/', views.delete_product, name='delete_product'),
-   path('user/<str:username>/', views.profile, name='profile'),
+    path('product/<int:product_id>/delete/', views.delete_product, name='delete_product'),
+    path('user/<str:username>/', views.profile, name='profile'),
     path('reviews/add/<str:model_name>/<int:object_id>/', views.add_review, name='add_review'),
-path('reviews/<int:review_id>/edit/', views.edit_review, name='edit_review'),
+    path('reviews/<int:review_id>/edit/', views.edit_review, name='edit_review'),
     path('reviews/<int:review_id>/delete/', views.delete_review, name='delete_review'),
 
- path('order/<int:order_id>/success/', views.order_success, name='order_success'),
+    path('order/<int:order_id>/success/', views.order_success, name='order_success'),
     path('order/<int:order_id>/', views.order_detail, name='order_detail'),
     path('purchased/', views.purchased_orders, name='purchased_orders'),
     path('order/<int:order_id>/cancel/', views.cancel_order, name='cancel_order'),
 
-path('about/', views.about, name='about'),
+    path('about/', views.about, name='about'),
+    # path('notifications/', views.notification_page, name='notification_page'),
 
 ]
 

@@ -160,12 +160,15 @@ class Order(models.Model):
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+
     quantity = models.PositiveIntegerField(default=1)
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
-    def __str__(self):
-        return f"{self.quantity} x {self.product.name} (Order #{self.order.id})"
+def __str__(self):
+    product_name = self.product.name if self.product else "Deleted Product"
+    return f"{self.quantity} x {product_name} (Order #{self.order.id})"
+
 
 import random
 from django.utils import timezone
