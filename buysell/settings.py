@@ -159,3 +159,4 @@ MEDIA_ROOT = BASE_DIR / 'media'
 CSRF_COOKIE_SECURE = False # its only True if you're using HTTPS
 
 
+LOGIN_URL = '/login/'

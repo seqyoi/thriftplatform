@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat with {{ receiver.username }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style1.css' %}">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #fefefe;
+      margin: 0;
+      padding: 0;
+      color: #2d3436;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .chat-container {
+      width: 100%;
+      max-width: 700px;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      max-height: 90vh;
+    }
+
+    .chat-header {
+      background: linear-gradient(to right, #ffeaa7, #F8D0C8);
+      color: #35522B;
+      padding: 20px;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .chat-body {
+      padding: 20px;
+      max-height: 400px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .message {
+      max-width: 75%;
+    }
+
+    .message.sent {
+      align-self: flex-end;
+      text-align: right;
+    }
+
+    .message.received {
+      align-self: flex-start;
+      text-align: left;
+    }
+
+    .bubble {
+      display: inline-block;
+      padding: 12px 18px;
+      border-radius: 20px;
+      background-color: #f1f1f1;
+      font-size: 14px;
+      color: #2d3436;
+    }
+
+    .message.sent .bubble {
+      background-color: #799567;
+      color: white;
+    }
+
+    .bubble small {
+      display: block;
+      font-size: 11px;
+      color: #ddd;
+      margin-top: 4px;
+    }
+
+    .chat-form {
+      display: flex;
+      padding: 16px;
+      border-top: 1px solid #eee;
+      background-color: #fff;
+    }
+
+    .chat-form input[type="text"] {
+      flex-grow: 1;
+      padding: 12px;
+      border-radius: 30px;
+      border: 2px solid #799567;
+      font-size: 14px;
+      margin-right: 10px;
+      outline: none;
+    }
+
+    .chat-form button {
+      padding: 12px 20px;
+      background-color: #799567;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .chat-form button:hover {
+      background-color: #5B744B;
+    }
+
+    .no-messages {
+      text-align: center;
+      color: #777;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .chat-container {
+        margin: 20px;
+      }
+
+      .chat-form input[type="text"] {
+        font-size: 13px;
+      }
+
+      .chat-form button {
+        font-size: 13px;
+        padding: 10px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="chat-container">
+  <div class="chat-header" style="display: flex; justify-content: space-between; align-items: center;">
+    <a href="{% url 'product_detail' product.id %}" style="
+      background-color:#799567 ;
+      border: 2px solid #799567;
+      color: #ffffff;
+      font-size: 25px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      transition: all 0.3s;
+    " title="Back to Product" onmouseover="this.style.backgroundColor='#799567'; this.style.color='white';" onmouseout="this.style.backgroundColor='white'; this.style.color='#799567';">
+        &larr;
+    </a>
+    <span style="flex: 1; text-align: center;">Chat with {{ receiver.username }} about "{{ product.name }}"</span>
+    <span style="width: 30px;"></span>
+  </div>
+
+  <div class="chat-body" id="chat-body">
+    {% for msg in messages %}
+      <div class="message {% if msg.sender == request.user %}sent{% else %}received{% endif %}">
+        <div class="bubble">
+          {{ msg.content|linebreaksbr }}
+          <br>
+          <small>{{ msg.timestamp|date:"M d, Y H:i" }}</small>
+        </div>
+      </div>
+    {% empty %}
+      <p class="no-messages">No messages yet.</p>
+    {% endfor %}
+  </div>
+
+  <form method="POST" class="chat-form">
+    {% csrf_token %}
+    <input type="text" name="message" placeholder="Type your message..." required>
+    <button type="submit">Send</button>
+  </form>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const chatBody = document.getElementById('chat-body');
+    if (chatBody) {
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+  });
+</script>
+
+</body>
+</html>

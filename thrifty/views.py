@@ -918,3 +918,20 @@ def cancel_order(request, order_id):
 
 def about(request):
     return render(request, 'about.html')
+
+# from chat.models import Message
+# @login_required
+# def notification_page(request):
+#     # Get ALL messages received by this user (sorted by time)
+#     all_messages = Message.objects.filter(receiver=request.user).order_by('-timestamp')
+
+#     # Get only unread messages
+#     unread_messages = all_messages.filter(is_read=False)
+
+#     # Mark unread ones as read
+#     unread_messages.update(is_read=True)
+
+#     return render(request, 'notification.html', {
+#         'unread_messages': unread_messages,
+#         'read_messages': all_messages.exclude(id__in=unread_messages.values_list('id', flat=True))
+#     })

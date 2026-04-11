@@ -1,0 +1,82 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  .notification-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+
+  .notification-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .notification {
+    background-color: #F9FBE7;  /* Light green for unread */
+    border-left: 6px solid #B6D36B;
+    padding: 12px 18px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+  }
+
+  .read-notification {
+    background-color: #f2f2f2;  /* Grey for read */
+    border-left: 6px solid #ccc;
+    padding: 12px 18px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+  }
+
+  .notification a, .read-notification a {
+    color: #5B744B;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .notification a:hover, .read-notification a:hover {
+    text-decoration: underline;
+  }
+
+  .no-notification {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+  }
+</style>
+
+<div class="notification-container">
+  <h2>🔔 Notifications</h2>
+
+  {% if unread_messages %}
+    <h3>New Messages</h3>
+    {% for msg in unread_messages %}
+      <div class="notification">
+        From <strong>{{ msg.sender.username }}</strong> about 
+        <strong>{{ msg.product.name }}</strong><br>
+        <a href="{% url 'chat_room' msg.product.id msg.sender.username %}">Open Chat</a>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  {% if read_messages %}
+    <h3 style="margin-top: 40px;">Earlier Notifications</h3>
+    {% for msg in read_messages %}
+      <div class="read-notification">
+        From <strong>{{ msg.sender.username }}</strong> about 
+        <strong>{{ msg.product.name }}</strong><br>
+        <a href="{% url 'chat_room' msg.product.id msg.sender.username %}">Open Chat</a>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="no-notification">You have no notifications yet.</div>
+  {% endif %}
+</div>
+{% endblock %}
