@@ -234,7 +234,7 @@ import pandas as pd
 #popularity based
 import joblib
 
-from .models import Product  # Make sure this model exists
+from .models import Product 
 
 def popular_products_view(request):
     popular_ids = joblib.load('thrifty/data/popular_df.pkl')
@@ -268,76 +268,67 @@ def content_based_recommendations(request, product_id):
 
     return render(request, 'thrifty/recommendations.html', {'products': recommended_products})
 
-def home_view(request):
-    recommended_products = []
-    try:
-        popular_ids = joblib.load('thrifty/data/popular_df.pkl')  # This is already a list
-        popular_ids = [str(pid).strip() for pid in popular_ids]   # Ensure string consistency
+import pandas as pd
+import joblib
+from django.shortcuts import render
+from .models import Product
 
-        print("Popular IDs:", popular_ids)
-        products = Product.objects.filter(product_id__in=popular_ids)
+
+def home_view(request):
+    try:
+        # Load popular IDs once
+        popular_ids = joblib.load('thrifty/data/popular_df.pkl')
+        popular_ids = [str(pid).strip() for pid in popular_ids]
+
+        # Fetch popular products
+        popular_products = Product.objects.filter(product_id__in=popular_ids)
+
     except Exception as e:
         print("Error loading popular products:", e)
-        products = []
-       
+        popular_products = []
+        popular_ids = []
 
-# Load content-based recommendations for a sample product (e.g., the first popular one)
-      
-    popular_ids = joblib.load('thrifty/data/popular_df.pkl')
-    print(f"Popular IDs: {popular_ids}")
+    # Default empty recommendations
+    recommended_products = []
 
-    # Load content-based recommenders
     try:
         cosine_sim = joblib.load('thrifty/data/cosine_sim.pkl')
         df = joblib.load('thrifty/data/products_df.pkl')
 
-        # If cosine_sim is a DataFrame, convert to numpy array
+        # Ensure proper format
         if hasattr(cosine_sim, 'values'):
             cosine_sim = cosine_sim.values
 
-        # Create index mapping product_id to row index in df
         df['product_id'] = df['product_id'].astype(str).str.strip()
         indices = pd.Series(df.index, index=df['product_id']).to_dict()
-        print(f"Indices sample keys: {list(indices.keys())[:10]}")
 
-        # Pick a reference product id (for example, first popular)
-        reference_pid = popular_ids[4]
-        print(f"Reference PID: {reference_pid}")
+        # Pick first popular product safely
+        if popular_ids:
+            reference_pid = popular_ids[0]
 
-        recommended_ids = []
+            if reference_pid in indices:
+                idx = indices[reference_pid]
 
-        if reference_pid in indices:
-            idx = indices[reference_pid]
+                sim_scores = list(enumerate(cosine_sim[idx]))
+                sim_scores = sorted(sim_scores, key=lambda x: float(x[1]), reverse=True)[1:6]
 
-            # cosine_sim[idx] should be a 1D array of similarity scores
-            sim_scores = list(enumerate(cosine_sim[idx]))
-            print(f"Sample sim_scores: {sim_scores[:5]}")
-            print(f"Type of sim_scores[0][1]: {type(sim_scores[0][1])}")
+                sim_indices = [i[0] for i in sim_scores]
+                recommended_ids = df.iloc[sim_indices]['product_id'].tolist()
 
-            # Sort by similarity score descending and skip the first (itself)
-            sim_scores = sorted(sim_scores, key=lambda x: float(x[1]), reverse=True)[1:6]
-
-            sim_indices = [i[0] for i in sim_scores]
-            recommended_ids = df.iloc[sim_indices]['product_id'].astype(str).tolist()
-            print(f"Recommended IDs: {recommended_ids}")
-        else:
-            print(f"Reference PID {reference_pid} not found in indices")
+                # Preserve order
+                preserved_order = {pid: i for i, pid in enumerate(recommended_ids)}
+                recommended_products = sorted(
+                    Product.objects.filter(product_id__in=recommended_ids),
+                    key=lambda x: preserved_order.get(x.product_id, 0)
+                )
 
     except Exception as e:
-        print(f"Error loading content-based recommendations: {e}")
-        recommended_ids = []
+        print("Error loading recommendations:", e)
 
-    # Fetch popular products from DB (filter by popular_ids)
-    popular_products = Product.objects.filter(product_id__in=popular_ids)
-
-    # Fetch recommended products from DB (filter by recommended_ids)
-    recommended_products = Product.objects.filter(product_id__in=recommended_ids)
-
-    context = {
+    return render(request, 'home.html', {
         'popular_products': popular_products,
         'recommended_products': recommended_products,
-    }
-    return render(request, 'home.html', context)
+    })
 from django.shortcuts import render
 from .models import Product
 
