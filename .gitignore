@@ -22,3 +22,7 @@ __pycache__/
 
 .env
 media/
+
+*.csv
+*.xlsx
+.ipynb_checkpoints/
